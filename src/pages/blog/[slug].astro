@@ -1,0 +1,27 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { formatDate, getPosts } from '../../lib/posts';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+	return (await getPosts()).map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} | Raymond Truong`} description={post.data.description}>
+	<div class="mx-auto max-w-3xl space-y-6 px-4 py-12 sm:px-6">
+		<a href={url('blog/')} class="text-primary text-sm font-medium">← Blog</a>
+		<h1 class="text-4xl font-semibold">{post.data.title}</h1>
+		<p class="text-muted-foreground text-xl">{post.data.description}</p>
+		<p class="border-border text-muted-foreground border-b pb-6 text-sm">
+			{formatDate(post.data.pubDate)} · {post.data.category}
+		</p>
+		<article class="prose">
+			<Content />
+		</article>
+	</div>
+</Layout>

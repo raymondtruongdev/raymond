@@ -1,46 +1,108 @@
 ---
+import '../styles/global.css';
+import { url } from '../lib/url';
+
 interface Props {
 	title: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
-// Đường dẫn gốc (theo `base` trong astro.config.mjs), luôn kết thúc bằng "/"
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const { title, description = 'Trang cá nhân của Raymond Truong - Software Engineer / Embedded Developer.' } =
+	Astro.props;
+
+const navigation = [
+	{ title: 'Trang chủ', href: url() },
+	{ title: 'Kinh nghiệm', href: url('#experience') },
+	{ title: 'Kỹ năng', href: url('#skills') },
+	{ title: 'Blog', href: url('blog/') },
+];
+
+const button =
+	'border-border bg-card hover:bg-accent inline-flex h-9 cursor-pointer items-center justify-center rounded-md border px-3 text-sm font-medium';
 ---
 
-<html lang="vi">
+<!doctype html>
+<html lang="vi" class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-		<link rel="icon" href={`${base}favicon.ico`} />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+		<link rel="icon" href={url('favicon.ico')} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" />
 		<title>{title}</title>
+		<script is:inline>
+			// Chạy trước khi vẽ trang để không bị nháy màu
+			(() => {
+				let saved;
+				try {
+					saved = localStorage.getItem('theme');
+				} catch {}
+				const dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.classList.toggle('dark', dark);
+			})();
+		</script>
 	</head>
-	<body>
-		<nav>
-			<a href={base}>Trang chủ</a>
-			<a href={`${base}about/`}>Giới thiệu</a>
-		</nav>
-		<main>
+	<body class="flex min-h-screen flex-col font-sans antialiased">
+		<header class="bg-background sticky top-0 z-50 h-16 shadow-sm">
+			<div class="mx-auto flex h-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+				<a href={url()} class="flex items-center gap-3">
+					<span class="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-full font-bold">
+						R
+					</span>
+					<span class="text-primary text-[20px] font-semibold max-sm:hidden">RAYMOND</span>
+				</a>
+
+				<nav class="flex gap-3 max-lg:hidden">
+					{
+						navigation.map((item) => (
+							<a href={item.href} class="text-muted-foreground hover:text-primary hover:bg-accent rounded-md px-3 py-1.5 font-medium">
+								{item.title}
+							</a>
+						))
+					}
+				</nav>
+
+				<div class="flex gap-3">
+					<button id="theme-toggle" type="button" class={button} aria-label="Chuyển chế độ sáng / tối">
+						<span class="dark:hidden">🌙</span>
+						<span class="hidden dark:inline">☀️</span>
+					</button>
+					<a href={url('#contact')} class={button}>Liên hệ</a>
+					<details class="relative lg:hidden">
+						<summary class={`${button} list-none`} aria-label="Menu">☰</summary>
+						<nav class="bg-popover border-border absolute right-0 mt-2 flex w-44 flex-col rounded-md border p-1 shadow-md">
+							{navigation.map((item) => <a href={item.href} class="hover:bg-accent rounded px-3 py-2 text-sm">{item.title}</a>)}
+						</nav>
+					</details>
+				</div>
+			</div>
+		</header>
+
+		<main class="flex-1">
 			<slot />
 		</main>
+
+		<footer class="border-border border-t">
+			<div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-8 sm:px-6 lg:px-8">
+				<p class="font-medium">© {new Date().getFullYear()} Raymond Truong</p>
+				<a href="https://github.com/raymondtruongdev" class="text-muted-foreground hover:text-foreground">GitHub</a>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById('theme-toggle')!.addEventListener('click', () => {
+				const dark = document.documentElement.classList.toggle('dark');
+				try {
+					localStorage.setItem('theme', dark ? 'dark' : 'light');
+				} catch {}
+			});
+			// Đóng menu di động sau khi chọn mục
+			const menu = document.querySelector<HTMLDetailsElement>('header details');
+			menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => (menu.open = false)));
+		</script>
 	</body>
 </html>
-
-<style is:global>
-	:root {
-		color-scheme: light dark;
-		font-family: system-ui, sans-serif;
-		line-height: 1.6;
-	}
-	body {
-		max-width: 40rem;
-		margin: 0 auto;
-		padding: 2rem 1rem;
-	}
-	nav {
-		display: flex;
-		gap: 1rem;
-	}
-</style>

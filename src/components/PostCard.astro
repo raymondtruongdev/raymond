@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/posts';
+import { url } from '../lib/url';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+
+<a
+	href={url(`blog/${post.id}/`)}
+	class="group bg-card ring-foreground/10 hover:ring-primary flex flex-col gap-3 rounded-xl p-6 ring-1 transition"
+>
+	<div class="flex items-center justify-between gap-2">
+		<span class="text-muted-foreground text-sm">{formatDate(post.data.pubDate)}</span>
+		<span class="bg-primary/10 text-primary rounded-full px-3 py-0.5 text-sm">{post.data.category}</span>
+	</div>
+	<h3 class="text-xl font-medium">{post.data.title}</h3>
+	<p class="text-muted-foreground">{post.data.description}</p>
+	<span class="text-primary mt-auto text-sm font-medium">Đọc tiếp ↗</span>
+</a>
