@@ -1,9 +1,9 @@
-Giao diện được phỏng theo shadcn-astro-ink-landing-page-free
-https://github.com/shadcnstudio/shadcn-astro-ink-landing-page-free
+Giao diện được phỏng theo agency-landing-page-Astrojs (AgenceX)
+https://github.com/uno-forge-hub/agency-landing-page-Astrojs
 
 MIT License
 
-Copyright (c) 2026 shadcn/studio
+Copyright (c) 2023 Johnkat-Mj
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

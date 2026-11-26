@@ -25,7 +25,7 @@ npm run dev       # mở http://localhost:4321/raymond/
 | `astro.config.mjs`             | Cấu hình `site` và `base`             |
 | `.github/workflows/deploy.yml` | Tự động deploy                        |
 
-Giao diện dùng [Tailwind CSS](https://tailwindcss.com), phỏng theo theme Ink của shadcn/studio (giấy phép MIT, xem `THIRD_PARTY_LICENSES.md`).
+Giao diện dùng [Tailwind CSS](https://tailwindcss.com), phỏng theo theme [AgenceX](https://github.com/uno-forge-hub/agency-landing-page-Astrojs) (giấy phép MIT, xem `THIRD_PARTY_LICENSES.md`).
 
 ## Viết bài blog
 
