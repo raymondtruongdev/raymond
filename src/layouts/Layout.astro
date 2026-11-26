@@ -1,0 +1,46 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+// Đường dẫn gốc (theo `base` trong astro.config.mjs), luôn kết thúc bằng "/"
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<html lang="vi">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+		<link rel="icon" href={`${base}favicon.ico`} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<nav>
+			<a href={base}>Trang chủ</a>
+			<a href={`${base}about/`}>Giới thiệu</a>
+		</nav>
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		color-scheme: light dark;
+		font-family: system-ui, sans-serif;
+		line-height: 1.6;
+	}
+	body {
+		max-width: 40rem;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+	nav {
+		display: flex;
+		gap: 1rem;
+	}
+</style>
