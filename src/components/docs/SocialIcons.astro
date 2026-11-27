@@ -1,0 +1,19 @@
+---
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { url } from '../../lib/url';
+---
+
+<a href={url()}>Trang chủ</a>
+<a href={url('blog/')}>Blog</a>
+<Default><slot /></Default>
+
+<style>
+	a {
+		color: var(--sl-color-text);
+		text-decoration: none;
+		font-weight: 600;
+	}
+	a:hover {
+		color: var(--sl-color-text-accent);
+	}
+</style>

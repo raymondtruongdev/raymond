@@ -42,6 +42,47 @@ category: 'Embedded'
 Nội dung bài viết.
 ```
 
+## Viết Docs
+
+Docs dùng [Starlight](https://starlight.astro.build), địa chỉ `/raymond/docs/`.
+
+Mỗi chủ đề là một thư mục trong `src/content/docs/docs/`: `algo`, `cpp`, `html`, `git`, `vps`.
+
+**Bài Markdown:** tạo `src/content/docs/docs/vps/ten-bai.md`, bài tự hiện trong sidebar.
+
+```md
+---
+title: 'Tiêu đề'
+sidebar:
+  order: 8
+---
+
+## Mục đầu tiên
+```
+
+**Bài HTML tĩnh:** đặt file vào `public/lessons/page/<chu-de>/ten-bai.html`, rồi tạo file `.md` để nhúng:
+
+```md
+---
+title: 'Tiêu đề'
+tableOfContents: false
+---
+
+<a href="/raymond/lessons/page/<chu-de>/ten-bai.html" target="_blank">Mở toàn màn hình ↗</a>
+
+<iframe class="lesson-frame" src="/raymond/lessons/page/<chu-de>/ten-bai.html" title="Tiêu đề"></iframe>
+```
+
+Ô tìm kiếm chỉ tìm được tiêu đề của bài HTML, không tìm nội dung bên trong.
+
+**Chủ đề mới:** tạo thư mục mới, rồi thêm vào `sidebar` trong `astro.config.mjs`:
+
+```js
+{ label: 'Tên nhóm', items: [{ autogenerate: { directory: 'docs/ten-thu-muc' } }] },
+```
+
+Nhớ thêm link bài mới vào trang mục lục `src/content/docs/docs/index.md`.
+
 ## Thêm trang mới
 
 Tạo `src/pages/projects.astro`, trang sẽ có địa chỉ `/raymond/projects/`:

@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # cần lịch sử git để hiện ngày cập nhật trong Docs
       - name: Install, build, and upload site
         uses: withastro/action@v6
 
