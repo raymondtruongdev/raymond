@@ -221,8 +221,8 @@ body::after {
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1 'JetBrains Mono', monospace; letter-spacing: .02em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); padding: 6px 10px; border-radius: 6px; margin-bottom: 18px; }
 .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft-2); }
 h1#_top { margin: 0 0 18px; font: 800 clamp(30px, 4.2vw, 42px)/1.18 var(--heading-font); letter-spacing: -.03em; color: var(--text); text-wrap: balance; }
-.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13.5px; color: var(--muted); padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-.meta span { display: inline-flex; align-items: center; gap: 6px; }
+.page-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13.5px; color: var(--muted); padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.page-meta span { display: inline-flex; align-items: center; gap: 6px; }
 
 .page-toc { margin-bottom: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); font-size: 14px; }
 .page-toc summary { display: flex; justify-content: space-between; padding: 8px 14px; cursor: pointer; list-style: none; color: var(--text); font-weight: 500; }
@@ -370,6 +370,11 @@ h1#_top { margin: 0 0 18px; font: 800 clamp(30px, 4.2vw, 42px)/1.18 var(--headin
 .pagination-links a > svg { display: none; }
 .pagination-links .link-title { font: 600 15.5px/1.45 var(--heading-font); color: var(--text); letter-spacing: -.01em; }
 .pagination-links a:hover .link-title { color: var(--accent); }
+
+.content-panel footer > .meta { display: none; } /* rỗng vì đã bỏ ngày và không có link sửa bài */
+.site-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--muted); }
+.site-foot a { color: var(--muted); text-decoration: none; }
+.site-foot a:hover { color: var(--accent); }
 
 /* ---------- Mục lục phải ---------- */
 .right-sidebar { border-inline-start: 0; scrollbar-width: none; }

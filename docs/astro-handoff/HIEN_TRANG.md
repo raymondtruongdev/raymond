@@ -15,6 +15,7 @@ là bản thiết kế gốc để đối chiếu, web không dùng tới.
 | Token màu, font, layout, responsive | `src/styles/raymond-theme.css` |
 | Cấu hình Starlight, khung code, số dòng, sidebar | `astro.config.mjs` |
 | Breadcrumb, nhãn nhóm, dòng thời gian đọc, ô số ở tiêu đề | `src/components/docs/PageTitle.astro` |
+| Footer chung của Docs; ẩn footer bài HTML nhúng và tự giãn khung | `src/components/docs/Footer.astro` |
 | Logo, menu Blog / Docs | `src/components/docs/SiteTitle.astro` |
 | Link trên header và trong menu di động | `src/components/docs/SocialIcons.astro` |
 | Nút Sáng / Tối / Hệ thống | `src/components/docs/ThemeSelect.astro` |
@@ -31,6 +32,7 @@ là bản thiết kế gốc để đối chiếu, web không dùng tới.
 | Thứ tự đầu bài | đoạn dẫn rồi tới dòng thông tin | dòng thông tin trước | Dòng này thuộc component tiêu đề |
 | Mục lục dưới 1200px | ẩn | hộp "Trên trang này" | Chủ dự án yêu cầu từ trước |
 | Nhóm sidebar | một số mở sẵn | thu gọn, nhóm chứa trang đang xem tự mở | Giữ cấu hình cũ |
+| "Cập nhật lần cuối" cuối bài | có (Starlight) | bỏ, ngày hiện ở đầu bài | Tránh lặp |
 | Công thức toán | không có | `<Tex tex="..." />` (KaTeX, dựng lúc build) | Cần cho bài thuật toán |
 
 ## Chưa làm

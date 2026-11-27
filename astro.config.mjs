@@ -66,6 +66,8 @@ export default defineConfig({
 				},
 			},
 			components: {
+				Footer: './src/components/docs/Footer.astro',
+				LastUpdated: './src/components/docs/Empty.astro',
 				PageTitle: './src/components/docs/PageTitle.astro',
 				SiteTitle: './src/components/docs/SiteTitle.astro',
 				SocialIcons: './src/components/docs/SocialIcons.astro',

@@ -7,8 +7,8 @@ Ghi ngày 27/11/2026.
 | Hạn chế | Ảnh hưởng | Hướng xử lý |
 | :------ | :-------- | :---------- |
 | Bài HTML được nhúng bằng iframe | Ô tìm kiếm chỉ tìm được tiêu đề, không tìm nội dung bên trong | Chuyển các bài cần tìm kiếm sang Markdown |
+| Khung bài HTML tự giãn theo nội dung | Thanh dính (sticky / fixed) bên trong bài không còn bám theo khi cuộn | Dùng nút "Mở toàn màn hình" |
 | Bài HTML luôn nền sáng | Không đổi theo dark mode | Thêm dark mode vào từng file trong `public/lessons/` |
-| Khung bài HTML cao cố định (80% màn hình) | Bài dài phải cuộn bên trong khung | Dùng nút "Mở toàn màn hình" |
 | Bài HTML tải thư viện từ CDN (Tailwind, highlight.js...) | CDN lỗi hoặc mất mạng thì bài hiển thị sai | Đưa thư viện vào `public/` |
 | Đường dẫn trong bài nhúng ghi cứng `/raymond/` | Đổi tên repo thì các bài này bị hỏng | Sửa đường dẫn trong `src/content/docs/docs/` |
 | Trang mục lục viết tay | Thêm bài mới phải tự thêm link | Sửa `src/content/docs/docs/index.md` |

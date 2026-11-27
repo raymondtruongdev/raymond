@@ -1,0 +1,39 @@
+---
+// Footer mặc định (nút Trước / Tiếp) và footer chung của web
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+
+<div class="site-foot">
+	<span>© {new Date().getFullYear()} Raymond</span>
+	<a href="https://github.com/raymondtruongdev">GitHub</a>
+</div>
+
+<script>
+	// Bài HTML nhúng (cùng tên miền): ẩn footer riêng của bài và cho khung cao bằng nội dung,
+	// để trang chỉ còn một thanh cuộn. Mở "toàn màn hình" thì bài giữ nguyên.
+	const css = `
+		body > footer, body > #footer-placeholder { display: none !important; }
+		html, body, .min-h-screen { min-height: 0 !important; height: auto !important; }
+	`;
+
+	document.querySelectorAll<HTMLIFrameElement>('iframe.lesson-frame').forEach((frame) => {
+		const setup = () => {
+			const doc = frame.contentDocument;
+			if (!doc?.body || doc.URL === 'about:blank' || doc.getElementById('embed-style')) return;
+			const style = doc.createElement('style');
+			style.id = 'embed-style';
+			style.textContent = css;
+			doc.head.append(style);
+			const resize = () => {
+				// +2 cho viền của khung
+				frame.style.height = `${Math.ceil(doc.documentElement.getBoundingClientRect().height) + 2}px`;
+			};
+			new ResizeObserver(resize).observe(doc.documentElement);
+			resize();
+		};
+		frame.addEventListener('load', setup);
+		if (frame.contentDocument?.readyState === 'complete') setup();
+	});
+</script>
