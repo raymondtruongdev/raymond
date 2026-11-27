@@ -1,5 +1,5 @@
 ---
-// Breadcrumb, mục lục thu gọn (màn hình hẹp), eyebrow, tiêu đề và dòng thông tin
+// Breadcrumb, mục lục thu gọn (màn hình hẹp), và một hàng: eyebrow, tiêu đề, ngày, nút toàn màn hình
 import { url } from '../../lib/url';
 import Icon from './Icon.astro';
 
@@ -22,9 +22,10 @@ const group = trail.length > 1 ? trail[0] : undefined;
 // Bỏ mục "Tổng quan" do Starlight tự thêm
 const headings = (toc?.items ?? []).flatMap((item) => (item.slug === '_top' ? item.children : [item]));
 
-// Bài nhúng HTML không có nội dung chữ để ước lượng thời gian đọc
+// Bài nhúng HTML: lấy đường dẫn cho nút "Toàn màn hình", và không ước lượng thời gian đọc
 const body = entry.body ?? '';
-const minutes = body.includes('lesson-frame') ? 0 : Math.max(1, Math.round(body.split(/\s+/).length / 220));
+const lesson = body.match(/<iframe class="lesson-frame" src="([^"]+)"/)?.[1];
+const minutes = lesson ? 0 : Math.max(1, Math.round(body.split(/\s+/).length / 220));
 ---
 
 <nav class="crumbs" aria-label="Breadcrumb">
@@ -63,35 +64,45 @@ const minutes = body.includes('lesson-frame') ? 0 : Math.max(1, Math.round(body.
 	)
 }
 
-{
-	group && (
-		<div class="eyebrow">
-			<span class="dot" />
-			{group}
-		</div>
-	)
-}
+<div class="page-head">
+	{
+		group && (
+			<div class="eyebrow">
+				<span class="dot" />
+				{group}
+			</div>
+		)
+	}
 
-<h1 id="_top">{entry.data.title}</h1>
+	<h1 id="_top">{entry.data.title}</h1>
 
-{
-	(minutes > 0 || lastUpdated) && (
-		<div class="page-meta">
-			{minutes > 0 && (
+	<div class="page-meta">
+		{
+			minutes > 0 && (
 				<span>
 					<Icon name="clock" />
 					{minutes} phút đọc
 				</span>
-			)}
-			{lastUpdated && (
-				<span>
+			)
+		}
+		{
+			lastUpdated && (
+				<span title="Ngày cập nhật">
 					<Icon name="cal" />
-					Cập nhật {lastUpdated.toLocaleDateString('vi-VN', { timeZone: 'UTC' })}
+					<span class="sr-only">Cập nhật</span>
+					{lastUpdated.toLocaleDateString('vi-VN', { timeZone: 'UTC' })}
 				</span>
-			)}
-		</div>
-	)
-}
+			)
+		}
+		{
+			lesson && (
+				<a class="full-btn" href={lesson} target="_blank">
+					Toàn màn hình <span aria-hidden="true">↗</span>
+				</a>
+			)
+		}
+	</div>
+</div>
 
 <script>
 	// Đóng mục lục sau khi chọn một mục
