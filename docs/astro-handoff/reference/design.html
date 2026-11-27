@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raymond Docs</title>
+<script>
+  (function () {
+    var pref = 'system';
+    try { pref = localStorage.getItem('rd-theme') || 'system'; } catch (e) {}
+    var dark = pref === 'dark' || (pref === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-pref', pref);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbfbfa;
+  --bg-elev: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f5f2;
+  --surface-3: #efefeb;
+  --border: #ebebe8;
+  --border-strong: #dcdcd7;
+  --text: #14161c;
+  --text-2: #3d424e;
+  --muted: #646b7a;
+  --faint: #8a909c;
+  --accent: #059669;
+  --accent-strong: #047857;
+  --accent-ink: #065f46;
+  --accent-soft: rgba(5,150,105,.08);
+  --accent-soft-2: rgba(5,150,105,.14);
+  --accent-line: rgba(5,150,105,.35);
+  --header-bg: rgba(251,251,250,.78);
+  --glow: radial-gradient(900px 380px at 62% -120px, rgba(16,185,129,.10), transparent 70%);
+  --grid-line: rgba(20,22,28,.035);
+  --shadow-sm: 0 1px 2px rgba(20,22,28,.04), 0 1px 1px rgba(20,22,28,.03);
+  --shadow-md: 0 1px 2px rgba(20,22,28,.04), 0 8px 24px -8px rgba(20,22,28,.10);
+  --code-inline-bg: #f1f1ed;
+  --code-inline-border: #e4e4df;
+  --code-inline-text: #1f3d33;
+
+  --warn-bg: #fffaeb;
+  --warn-border: #f5d98a;
+  --warn-rail: #d97706;
+  --warn-title: #92400e;
+  --warn-text: #5b3a10;
+  --tip-bg: #f0f8fd;
+  --tip-border: #bfe0f2;
+  --tip-rail: #0284c7;
+  --tip-title: #075985;
+  --tip-text: #17405a;
+  --note-bg: #f6f6f3;
+
+  --code-bg: #0f1218;
+  --code-head: #151922;
+  --code-border: #1f2430;
+  --code-text: #d6dae3;
+  --tok-cmd: #6ee7b7;
+  --tok-flag: #93c5fd;
+  --tok-val: #fcd34d;
+  --tok-com: #6b7385;
+  --tok-str: #f0abfc;
+
+  --focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-line);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { /* no-JS fallback mirrors dark tokens below */
+    --bg: #0b0d12; --bg-elev:#0f1218; --surface:#11141b; --surface-2:#151922; --surface-3:#1a1f2a;
+    --border: rgba(255,255,255,.07); --border-strong: rgba(255,255,255,.12);
+    --text:#e6e8ee; --text-2:#c3c8d4; --muted:#8b93a7; --faint:#6b7385;
+    --accent:#34d399; --accent-strong:#6ee7b7; --accent-ink:#a7f3d0;
+    --accent-soft: rgba(52,211,153,.08); --accent-soft-2: rgba(52,211,153,.14); --accent-line: rgba(52,211,153,.45);
+    --header-bg: rgba(11,13,18,.72);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12;
+  --bg-elev: #0f1218;
+  --surface: #11141b;
+  --surface-2: #151922;
+  --surface-3: #1a1f2a;
+  --border: rgba(255,255,255,.07);
+  --border-strong: rgba(255,255,255,.12);
+  --text: #e6e8ee;
+  --text-2: #c3c8d4;
+  --muted: #8b93a7;
+  --faint: #6b7385;
+  --accent: #34d399;
+  --accent-strong: #6ee7b7;
+  --accent-ink: #a7f3d0;
+  --accent-soft: rgba(52,211,153,.08);
+  --accent-soft-2: rgba(52,211,153,.14);
+  --accent-line: rgba(52,211,153,.45);
+  --header-bg: rgba(11,13,18,.72);
+  --glow: radial-gradient(900px 420px at 62% -140px, rgba(52,211,153,.13), transparent 70%), radial-gradient(600px 300px at 10% -100px, rgba(56,189,248,.06), transparent 70%);
+  --grid-line: rgba(255,255,255,.025);
+  --shadow-sm: 0 1px 0 rgba(255,255,255,.03) inset, 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 1px 0 rgba(255,255,255,.04) inset, 0 12px 32px -12px rgba(0,0,0,.6);
+  --code-inline-bg: rgba(255,255,255,.06);
+  --code-inline-border: rgba(255,255,255,.08);
+  --code-inline-text: #c9f5e2;
+
+  --warn-bg: rgba(245,158,11,.07);
+  --warn-border: rgba(245,158,11,.22);
+  --warn-rail: #f59e0b;
+  --warn-title: #fbbf24;
+  --warn-text: #f1dfbd;
+  --tip-bg: rgba(56,189,248,.06);
+  --tip-border: rgba(56,189,248,.2);
+  --tip-rail: #38bdf8;
+  --tip-title: #7dd3fc;
+  --tip-text: #cfe7f5;
+  --note-bg: rgba(255,255,255,.03);
+
+  --code-bg: #0a0c11;
+  --code-head: #10131a;
+  --code-border: rgba(255,255,255,.08);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 16.5px;
+  line-height: 1.75;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body, .header, .sidebar, .toc, .spec, .callout, .pager a, .search, .seg, .chip, code, .meta-tag {
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+.page-glow {
+  position: absolute; inset: 0 0 auto 0; height: 560px; pointer-events: none; z-index: 0;
+  background: var(--glow);
+}
+.page-glow::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(700px 360px at 62% 0, #000 20%, transparent 75%);
+          mask-image: radial-gradient(700px 360px at 62% 0, #000 20%, transparent 75%);
+}
+a { color: var(--accent); text-decoration: none; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 6px; }
+::selection { background: var(--accent-soft-2); }
+
+/* ---------- Header ---------- */
+.header {
+  position: sticky; top: 0; z-index: 50;
+  height: 60px;
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 20px;
+  background: var(--header-bg);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-family: "Be Vietnam Pro", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -.01em; width: 240px; flex-shrink: 0; }
+.brand-mark {
+  width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+  background: linear-gradient(145deg, var(--accent), #0d9488);
+  color: #fff; font-size: 14px; font-weight: 800;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset, 0 4px 12px -4px rgba(16,185,129,.55);
+}
+:root[data-theme="dark"] .brand-mark { color: #052e22; }
+.brand small { font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 11px; color: var(--muted); border: 1px solid var(--border); padding: 1px 6px; border-radius: 5px; letter-spacing: 0; }
+.nav { display: flex; gap: 4px; }
+.nav a { color: var(--muted); font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 7px; line-height: 1.4; position: relative; }
+.nav a:hover { color: var(--text); background: var(--surface-2); }
+.nav a[aria-current="page"] { color: var(--text); }
+.nav a[aria-current="page"]::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: -14px; height: 2px; background: var(--accent); border-radius: 2px; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.search {
+  display: flex; align-items: center; gap: 8px;
+  width: 260px; height: 36px; padding: 0 8px 0 11px;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 9px;
+  color: var(--muted);
+}
+.search:focus-within { border-color: var(--accent-line); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-soft-2); }
+.search input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 14px; outline: none; }
+.search input::placeholder { color: var(--muted); }
+.search input:focus-visible { box-shadow: none; }
+kbd {
+  font-family: "Inter", sans-serif; font-size: 11px; font-weight: 500; color: var(--muted);
+  border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 5px; padding: 0 5px; line-height: 18px; background: var(--surface);
+}
+.icon-btn {
+  width: 36px; height: 36px; display: grid; place-items: center; border-radius: 9px;
+  color: var(--muted); background: transparent; border: 1px solid transparent; cursor: pointer;
+}
+.icon-btn:hover { color: var(--text); background: var(--surface-2); border-color: var(--border); }
+.seg { display: flex; padding: 3px; gap: 2px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; }
+.seg button {
+  display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px;
+  border: 0; border-radius: 7px; background: transparent; color: var(--muted);
+  font: 500 13px/1 "Inter", sans-serif; cursor: pointer;
+}
+.seg button:hover { color: var(--text); }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm), 0 0 0 1px var(--border); }
+:root[data-theme="dark"] .seg button[aria-pressed="true"] { background: var(--surface-3); }
+.seg button[aria-pressed="true"] svg { color: var(--accent); }
+.hamburger { display: none; }
+
+/* ---------- Layout ---------- */
+.layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 248px;
+  max-width: 1480px; margin: 0 auto;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: sticky; top: 60px; height: calc(100vh - 60px);
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 24px 14px 40px 20px;
+  border-right: 1px solid var(--border);
+  scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent;
+}
+.side-label { font-family: "Be Vietnam Pro", sans-serif; font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin: 0 10px 10px; }
+.group { margin-bottom: 4px; }
+.group-btn {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  padding: 7px 10px; border: 0; background: transparent; border-radius: 8px; cursor: pointer;
+  color: var(--text); font: 600 14px/1.4 "Be Vietnam Pro", sans-serif; text-align: left;
+}
+.group-btn:hover { background: var(--surface-2); }
+.group-btn .g-ico { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); flex-shrink: 0; }
+.group-btn .chev { margin-left: auto; color: var(--faint); transition: transform .2s ease; }
+.group-btn[aria-expanded="true"] .chev { transform: rotate(90deg); }
+.group-btn[aria-expanded="true"] .g-ico { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.group-items { list-style: none; margin: 2px 0 8px; padding: 0 0 0 21px; display: grid; grid-template-rows: 1fr; transition: grid-template-rows .25s ease; }
+.group-items > div { overflow: hidden; }
+.group[data-open="false"] .group-items { grid-template-rows: 0fr; margin: 0; }
+.group-items ul { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--border); }
+.group-items a {
+  display: block; position: relative;
+  margin-left: -1px; padding: 6px 10px 6px 14px;
+  color: var(--muted); font-size: 13.75px; line-height: 1.45;
+  border-left: 1px solid transparent; border-radius: 0 7px 7px 0;
+}
+.group-items a:hover { color: var(--text); border-left-color: var(--border-strong); }
+.group-items a[aria-current="page"] {
+  color: var(--accent-ink); font-weight: 500;
+  background: linear-gradient(90deg, var(--accent-soft-2), var(--accent-soft) 60%, transparent);
+  border-left: 2px solid var(--accent);
+  padding-left: 13px;
+}
+:root[data-theme="light"] .group-items a[aria-current="page"] { color: var(--accent-strong); }
+
+/* ---------- Article ---------- */
+main { min-width: 0; padding: 40px 56px 80px; }
+article { max-width: 760px; margin: 0 auto; }
+.crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13.5px; color: var(--muted); margin-bottom: 18px; }
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--text); }
+.crumbs .sep { color: var(--faint); }
+.crumbs [aria-current] { color: var(--text-2); }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: .02em; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); padding: 6px 10px; border-radius: 6px; margin-bottom: 18px; }
+.eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft-2); }
+h1, h2, h3 { font-family: "Be Vietnam Pro", sans-serif; color: var(--text); letter-spacing: -.02em; }
+h1 { font-size: clamp(30px, 4.2vw, 42px); line-height: 1.18; font-weight: 800; margin: 0 0 18px; letter-spacing: -.03em; text-wrap: balance; }
+.lede { font-size: 18.5px; line-height: 1.7; color: var(--text-2); margin: 0 0 22px; max-width: 680px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; font-size: 13.5px; color: var(--muted); padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.meta span.m { display: inline-flex; align-items: center; gap: 6px; }
+.meta .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.meta-tag { font-size: 12px; font-weight: 500; color: var(--text-2); background: var(--surface-2); border: 1px solid var(--border); padding: 2px 9px; border-radius: 6px; }
+
+h2 {
+  font-size: 26px; line-height: 1.3; font-weight: 700;
+  margin: 64px 0 18px; padding-top: 32px; border-top: 1px solid var(--border);
+  display: flex; gap: 14px; align-items: baseline; position: relative;
+}
+h2 .num {
+  flex-shrink: 0;
+  font: 500 14px/1 "JetBrains Mono", monospace; color: var(--accent);
+  letter-spacing: 0; min-width: 28px; position: relative; top: -3px;
+}
+h2::before { content: ""; position: absolute; top: -1px; left: 0; width: 28px; height: 2px; background: var(--accent); border-radius: 0 0 2px 2px; }
+h2:first-of-type { margin-top: 40px; }
+h3 {
+  font-size: 19.5px; line-height: 1.4; font-weight: 700; margin: 44px 0 12px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+h3 .letter {
+  width: 28px; height: 28px; flex-shrink: 0; display: grid; place-items: center;
+  font: 700 13px/1 "Be Vietnam Pro", sans-serif; letter-spacing: 0;
+  color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 8px;
+}
+h3 .vi { font-weight: 500; color: var(--muted); font-size: 16px; letter-spacing: -.01em; }
+.anchor { opacity: 0; color: var(--faint); font-weight: 400; font-size: .8em; transition: opacity .15s; }
+h2:hover .anchor, h3:hover .anchor { opacity: 1; }
+p { margin: 0 0 18px; color: var(--text-2); }
+strong { color: var(--text); font-weight: 600; }
+article ul.list { padding-left: 0; list-style: none; margin: 0 0 20px; }
+article ul.list li { position: relative; padding-left: 22px; margin: 6px 0; color: var(--text-2); }
+article ul.list li::before { content: ""; position: absolute; left: 4px; top: .72em; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); opacity: .7; transform: rotate(45deg); }
+
+code {
+  font-family: "JetBrains Mono", monospace; font-size: .86em; font-weight: 400;
+  color: var(--code-inline-text); background: var(--code-inline-bg);
+  border: 1px solid var(--code-inline-border); padding: .12em .42em; border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Path chips */
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 14px 16px; margin: 0 0 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm); }
+.path .lab { font-size: 12.5px; color: var(--muted); margin-right: 4px; font-weight: 500; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font: 500 13px/1 "Inter", sans-serif; color: var(--text); background: var(--surface-2); border: 1px solid var(--border-strong); border-bottom-width: 2px; padding: 7px 10px; border-radius: 7px; white-space: nowrap; }
+.chip.last { color: var(--accent-ink); border-color: var(--accent-line); background: var(--accent-soft); }
+:root[data-theme="light"] .chip.last { color: var(--accent-strong); }
+.path .arr { color: var(--faint); display: grid; place-items: center; }
+
+/* Spec card */
+.spec { margin: 16px 0 26px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow-md); overflow: hidden; }
+.spec-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; background: var(--surface-2); border-bottom: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
+.spec-head b { font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+.spec-head .ok { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 500; }
+.spec dl { margin: 0; display: grid; grid-template-columns: 170px 1fr; }
+.spec dt, .spec dd { margin: 0; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+.spec dl > :nth-last-child(-n+2) { border-bottom: 0; }
+.spec dt { font-size: 13.5px; font-weight: 500; color: var(--muted); display: block; line-height: 1.6; }
+.spec dt small { display: block; font-size: 12px; color: var(--faint); font-weight: 400; }
+.spec dd { color: var(--text); font-size: 15px; line-height: 1.6; }
+.spec dd .val { font: 500 14px/1.5 "JetBrains Mono", monospace; color: var(--text); }
+.spec dd .note { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; }
+.badge { display: inline-flex; align-items: center; gap: 5px; font: 600 11.5px/1 "Inter", sans-serif; padding: 4px 8px; border-radius: 6px; margin-left: 8px; vertical-align: 2px; white-space: nowrap; }
+.badge.good { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); }
+.badge.must { color: var(--warn-title); background: var(--warn-bg); border: 1px solid var(--warn-border); }
+.badge.no { color: #b42318; background: rgba(217,45,32,.07); border: 1px solid rgba(217,45,32,.25); }
+:root[data-theme="dark"] .badge.no { color: #fca5a5; background: rgba(248,113,113,.08); border-color: rgba(248,113,113,.25); }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pills .val { padding: 2px 8px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface-2); font-size: 13px !important; }
+.spec dd.danger-row { background: linear-gradient(90deg, var(--warn-bg), transparent 80%); }
+.spec dt.danger-row { background: var(--warn-bg); color: var(--warn-title); box-shadow: inset 3px 0 0 var(--warn-rail); }
+.spec dt.danger-row small { color: var(--warn-title); opacity: .8; }
+
+/* Callouts */
+.callout {
+  position: relative; display: grid; grid-template-columns: 34px 1fr; gap: 4px 14px;
+  margin: 18px 0 24px; padding: 18px 20px 18px 18px;
+  border: 1px solid; border-radius: 12px;
+}
+.callout::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 3px; border-radius: 0 3px 3px 0; }
+.callout .c-ico { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; }
+.callout .c-title { font: 700 15px/1.4 "Be Vietnam Pro", sans-serif; margin: 6px 0 4px; letter-spacing: -.01em; }
+.callout .c-body { grid-column: 2; }
+.callout p, .callout li { color: inherit; font-size: 15px; line-height: 1.7; margin: 0 0 8px; }
+.callout ul { margin: 6px 0 0; padding: 0; list-style: none; }
+.callout li { position: relative; padding-left: 20px; }
+.callout li::before { content: "—"; position: absolute; left: 0; opacity: .6; }
+.callout.warn { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-text); }
+.callout.warn::before { background: var(--warn-rail); }
+.callout.warn .c-ico { background: var(--warn-rail); color: #fff; box-shadow: 0 4px 14px -4px var(--warn-rail); }
+:root[data-theme="dark"] .callout.warn .c-ico { color: #1f1300; }
+.callout.warn .c-title, .callout.warn strong { color: var(--warn-title); }
+.callout.warn code { color: var(--warn-title); background: rgba(217,119,6,.1); border-color: var(--warn-border); }
+.callout.tip { background: var(--tip-bg); border-color: var(--tip-border); color: var(--tip-text); }
+.callout.tip::before { background: var(--tip-rail); }
+.callout.tip .c-ico { background: var(--tip-rail); color: #fff; box-shadow: 0 4px 14px -4px var(--tip-rail); }
+:root[data-theme="dark"] .callout.tip .c-ico { color: #04212f; }
+.callout.tip .c-title, .callout.tip strong { color: var(--tip-title); }
+.callout.tip code { color: var(--tip-title); background: rgba(2,132,199,.08); border-color: var(--tip-border); }
+.callout.note { background: var(--note-bg); border-color: var(--border); color: var(--text-2); }
+.callout.note::before { background: var(--faint); }
+.callout.note .c-ico { background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border); }
+
+/* Code block */
+.codeblock { margin: 20px 0 28px; background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); }
+.code-head { display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 8px 0 14px; background: var(--code-head); border-bottom: 1px solid var(--code-border); }
+.code-head .dots { display: flex; gap: 6px; }
+.code-head .dots i { width: 10px; height: 10px; border-radius: 50%; background: #2a303c; }
+.code-tab { display: flex; white-space: nowrap; min-width: 0; align-items: center; gap: 7px; font: 500 12.5px/1 "JetBrains Mono", monospace; color: #c3c8d4; padding: 7px 10px; border-radius: 7px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.06); margin-left: 6px; }
+.code-tab svg { color: var(--tok-cmd); }
+.code-lang { margin-left: auto; font: 500 11px/1 "JetBrains Mono", monospace; color: #6b7385; text-transform: uppercase; letter-spacing: .06em; }
+.copy {
+  display: flex; white-space: nowrap; flex-shrink: 0; align-items: center; gap: 6px; height: 28px; padding: 0 10px;
+  font: 500 12px/1 "Inter", sans-serif; color: #a9b0bf; background: transparent;
+  border: 1px solid rgba(255,255,255,.1); border-radius: 7px; cursor: pointer;
+  transition: color .15s, background .15s, border-color .15s;
+}
+.copy:hover { color: #fff; background: rgba(255,255,255,.06); }
+.copy.done { color: #6ee7b7; border-color: rgba(110,231,183,.4); background: rgba(52,211,153,.08); }
+.copy:focus-visible { box-shadow: 0 0 0 2px #34d399; }
+.codeblock pre { margin: 0; padding: 18px 20px; overflow-x: auto; font: 400 13.75px/1.85 "JetBrains Mono", monospace; color: var(--code-text); counter-reset: ln; scrollbar-width: thin; scrollbar-color: #2a303c transparent; }
+.codeblock pre code { all: unset; white-space: pre; }
+.ln { display: block; }
+.ln::before { counter-increment: ln; content: counter(ln); display: inline-block; width: 22px; margin-right: 16px; text-align: right; color: #3b4252; user-select: none; }
+.t-cmd { color: var(--tok-cmd); }
+.t-flag { color: var(--tok-flag); }
+.t-val { color: var(--tok-val); }
+.t-com { color: var(--tok-com); font-style: italic; }
+.t-op { color: #6b7385; }
+
+/* Checklist */
+.checks { list-style: none; padding: 0; margin: 12px 0 24px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.checks li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-2); font-size: 15px; line-height: 1.6; }
+.checks li:last-child { border-bottom: 0; }
+.checks .box { flex-shrink: 0; width: 18px; height: 18px; margin-top: 3px; border-radius: 5px; border: 1.5px solid var(--accent-line); background: var(--accent-soft); display: grid; place-items: center; color: var(--accent); }
+
+/* Free tier stat strip */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 18px 0 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.stats div { padding: 16px 18px; border-right: 1px solid var(--border); }
+.stats div:last-child { border-right: 0; }
+.stats b { display: block; font: 700 22px/1.2 "Be Vietnam Pro", sans-serif; color: var(--text); letter-spacing: -.02em; }
+.stats span { font-size: 13px; color: var(--muted); }
+
+/* Footer */
+.page-foot { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13.5px; color: var(--muted); }
+.page-foot a { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+.page-foot a:hover { color: var(--accent); }
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+.pager a {
+  display: block; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface);
+  box-shadow: var(--shadow-sm); transition: border-color .2s, transform .2s, box-shadow .2s, background-color .3s;
+}
+.pager a:hover { border-color: var(--accent-line); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.pager small { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+.pager span { font: 600 15.5px/1.45 "Be Vietnam Pro", sans-serif; color: var(--text); letter-spacing: -.01em; }
+.pager a:hover span { color: var(--accent); }
+.pager .next { text-align: right; }
+.pager .next small { justify-content: flex-end; }
+
+/* ---------- TOC ---------- */
+.toc { position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; padding: 40px 20px 40px 8px; scrollbar-width: none; }
+.toc-title { display: flex; align-items: center; gap: 8px; font: 600 12px/1 "Be Vietnam Pro", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin: 0 0 14px; }
+.toc-list { position: relative; list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--border); }
+.toc-indicator { position: absolute; left: -1px; width: 2px; background: var(--accent); border-radius: 2px; top: 0; height: 0; transition: top .3s cubic-bezier(.4,.1,.2,1), height .3s cubic-bezier(.4,.1,.2,1), opacity .2s; box-shadow: 0 0 10px var(--accent-line); }
+.toc-list a { display: block; padding: 5px 0 5px 14px; font-size: 13px; line-height: 1.5; color: var(--muted); transition: color .2s; }
+.toc-list a:hover { color: var(--text); }
+.toc-list a.active { color: var(--accent-ink); font-weight: 500; }
+:root[data-theme="light"] .toc-list a.active { color: var(--accent-strong); }
+.toc-list .sub a { padding-left: 28px; font-size: 12.75px; }
+.toc-extra { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); display: grid; gap: 10px; }
+.toc-extra a { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.toc-extra a:hover { color: var(--text); }
+.toc-extra button { all: unset; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.toc-extra button:hover { color: var(--text); }
+.toc-extra button:focus-visible { box-shadow: var(--focus); border-radius: 4px; }
+
+.scrim { display: none; }
+
+/* reveal */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+article > * { animation: rise .55s cubic-bezier(.2,.7,.2,1) both; }
+article > *:nth-child(1) { animation-delay: .02s; }
+article > *:nth-child(2) { animation-delay: .06s; }
+article > *:nth-child(3) { animation-delay: .10s; }
+article > *:nth-child(4) { animation-delay: .14s; }
+article > *:nth-child(5) { animation-delay: .18s; }
+article > *:nth-child(n+6) { animation-delay: .22s; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1199px) {
+  .layout { grid-template-columns: 280px minmax(0, 1fr); }
+  .toc { display: none; }
+  .search { width: 220px; }
+}
+@media (max-width: 1040px) {
+  .seg button span { display: none; }
+  .seg button { padding: 0 8px; }
+}
+@media (max-width: 899px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .hamburger { display: grid; }
+  .brand { width: auto; }
+  .nav { display: none; }
+  .header { gap: 10px; padding: 0 12px; }
+  .search { width: 36px; padding: 0; justify-content: center; background: transparent; border-color: transparent; }
+  .search input, .search kbd { display: none; }
+  .search.open { position: absolute; left: 12px; right: 12px; width: auto; padding: 0 8px 0 11px; justify-content: flex-start; background: var(--surface); border-color: var(--accent-line); z-index: 3; }
+  .search.open input { display: block; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; height: 100vh; width: min(320px, 86vw); z-index: 70;
+    background: var(--bg-elev); transform: translateX(-102%); transition: transform .28s cubic-bezier(.3,.7,.2,1), background-color .3s;
+    padding-top: 20px; box-shadow: none; visibility: hidden;
+    transition: transform .28s cubic-bezier(.3,.7,.2,1), visibility 0s linear .28s, background-color .3s;
+  }
+  body.drawer-open .sidebar { transform: none; visibility: visible; box-shadow: 20px 0 50px -20px rgba(0,0,0,.4); transition: transform .28s cubic-bezier(.3,.7,.2,1), visibility 0s, background-color .3s; }
+  .scrim { display: block; position: fixed; inset: 0; z-index: 60; background: rgba(5,7,10,.45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  body.drawer-open .scrim { opacity: 1; pointer-events: auto; }
+  main { padding: 28px 16px 64px; }
+  .spec dl { grid-template-columns: 1fr; }
+  .spec dt { border-bottom: 0; padding-bottom: 2px; }
+  .spec dd { padding-top: 0; }
+  .spec dt.danger-row { padding-top: 14px; }
+  .spec dl > :nth-last-child(2) { border-bottom: 0; }
+}
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .lede { font-size: 17px; }
+  h2 { font-size: 22px; gap: 10px; }
+  h3 { font-size: 18px; }
+  .pager { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .stats div { border-right: 0; border-bottom: 1px solid var(--border); }
+  .stats div:last-child { border-bottom: 0; }
+  .brand small { display: none; }
+  .code-head .dots, .code-lang { display: none; }
+  .code-tab { margin-left: 0; }
+  .copy { margin-left: auto; }
+  .callout { grid-template-columns: 1fr; }
+  .callout .c-body { grid-column: 1; }
+  .callout .c-ico { width: 30px; height: 30px; }
+  code { white-space: normal; word-break: break-word; }
+}
+</style>
+</head>
+<body>
+<div class="page-glow" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chev" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sys" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></g></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></g></symbol>
+  <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-algo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7.5 7.7l3.4 8.4M16.5 7.7l-3.4 8.4M8.2 6h7.6"/></g></symbol>
+  <symbol id="i-cpp" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 7.5a5 5 0 1 0 0 9"/><path d="M14 12h4M16 10v4M19.5 12"/></g></symbol>
+  <symbol id="i-html" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-git" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 8.2v7.6M18 11.2c0 3-3 4-9.8 5.6"/></g></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7.5 7.5h.01M7.5 16.5h.01M11 7.5h6M11 16.5h6"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 4.1L2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.1a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/></g></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></g></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></g></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><path d="M5 7l5 5-5 5M12 18h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4zM13.5 6.5l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.3-7.5 9.5-4.3-1.2-7.5-5-7.5-9.5V6L12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="header">
+  <button class="icon-btn hamburger" id="menuBtn" aria-label="Mở mục lục" aria-controls="sidebar" aria-expanded="false"><svg width="20" height="20"><use href="#i-menu"/></svg></button>
+  <a class="brand" href="#" aria-label="Raymond — trang chủ">
+    <span class="brand-mark" aria-hidden="true">R</span>
+    Raymond
+    <small>docs</small>
+  </a>
+  <nav class="nav" aria-label="Chính">
+    <a href="#">Blog</a>
+    <a href="#" aria-current="page">Docs</a>
+  </nav>
+  <div class="header-right">
+    <label class="search" id="search">
+      <svg width="16" height="16" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="searchInput" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm tài liệu">
+      <kbd id="kbdHint">⌘K</kbd>
+    </label>
+    <a class="icon-btn" href="#" aria-label="GitHub"><svg width="19" height="19"><use href="#i-gh"/></svg></a>
+    <div class="seg" role="group" aria-label="Giao diện">
+      <button type="button" data-set="light" aria-pressed="false" title="Sáng"><svg width="15" height="15" aria-hidden="true"><use href="#i-sun"/></svg><span>Sáng</span></button>
+      <button type="button" data-set="dark" aria-pressed="false" title="Tối"><svg width="15" height="15" aria-hidden="true"><use href="#i-moon"/></svg><span>Tối</span></button>
+      <button type="button" data-set="system" aria-pressed="false" title="Hệ thống"><svg width="15" height="15" aria-hidden="true"><use href="#i-sys"/></svg><span>Hệ thống</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar" aria-label="Mục lục">
+    <p class="side-label">Mục lục</p>
+
+    <div class="group" data-open="true">
+      <button class="group-btn" aria-expanded="true"><span class="g-ico"><svg width="13" height="13"><use href="#i-algo"/></svg></span>Thuật toán<svg class="chev" width="14" height="14"><use href="#i-chev"/></svg></button>
+      <div class="group-items"><div><ul>
+        <li><a href="#">Detailed Guide to 11 Complexity Patterns</a></li>
+        <li><a href="#">Breadth First Search (BFS)</a></li>
+        <li><a href="#">Dijkstra Algorithm</a></li>
+        <li><a href="#">A* Algorithm</a></li>
+      </ul></div></div>
+    </div>
+
+    <div class="group" data-open="true">
+      <button class="group-btn" aria-expanded="true"><span class="g-ico"><svg width="13" height="13"><use href="#i-cpp"/></svg></span>C++<svg class="chev" width="14" height="14"><use href="#i-chev"/></svg></button>
+      <div class="group-items"><div><ul>
+        <li><a href="#">Introduction Pointer</a></li>
+        <li><a href="#">C++ Shared &amp; Weak Pointers</a></li>
+      </ul></div></div>
+    </div>
+
+    <div class="group" data-open="false">
+      <button class="group-btn" aria-expanded="false"><span class="g-ico"><svg width="13" height="13"><use href="#i-html"/></svg></span>HTML / CSS<svg class="chev" width="14" height="14"><use href="#i-chev"/></svg></button>
+      <div class="group-items"><div><ul>
+        <li><a href="#">Flexbox &amp; Grid căn bản</a></li>
+        <li><a href="#">CSS Variables và Dark Mode</a></li>
+      </ul></div></div>
+    </div>
+
+    <div class="group" data-open="false">
+      <button class="group-btn" aria-expanded="false"><span class="g-ico"><svg width="13" height="13"><use href="#i-git"/></svg></span>Git<svg class="chev" width="14" height="14"><use href="#i-chev"/></svg></button>
+      <div class="group-items"><div><ul>
+        <li><a href="#">Git cơ bản cho người mới</a></li>
+        <li><a href="#">Rebase vs Merge</a></li>
+      </ul></div></div>
+    </div>
+
+    <div class="group" data-open="true">
+      <button class="group-btn" aria-expanded="true"><span class="g-ico"><svg width="13" height="13"><use href="#i-server"/></svg></span>VPS &amp; Server<svg class="chev" width="14" height="14"><use href="#i-chev"/></svg></button>
+      <div class="group-items"><div><ul>
+        <li><a href="#" aria-current="page">Tạo máy ảo Google Cloud VPS Free Tier</a></li>
+        <li><a href="#">Tạo Swap RAM trên Linux VPS</a></li>
+        <li><a href="#">Kết nối SSH với máy Linux</a></li>
+        <li><a href="#">Cài đặt ứng dụng cần thiết trên Ubuntu Server</a></li>
+        <li><a href="#">Cài đặt và khởi chạy OmniRoute (AI Gateway)</a></li>
+        <li><a href="#">Tạo Auto-Run Service trên Ubuntu</a></li>
+        <li><a href="#">Cấu hình Cloudflare Tunnel</a></li>
+      </ul></div></div>
+    </div>
+  </aside>
+
+  <main id="main">
+    <article>
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="#">Docs</a><span class="sep">/</span>
+        <a href="#">VPS &amp; Server</a><span class="sep">/</span>
+        <span aria-current="page">Google Cloud VPS Free Tier</span>
+      </nav>
+
+      <div class="eyebrow"><span class="dot"></span>VPS &amp; SERVER · HƯỚNG DẪN</div>
+
+      <h1>Tạo máy ảo Google Cloud VPS Free Tier</h1>
+
+      <p class="lede">Hướng dẫn tạo một máy chủ Ubuntu chạy 24/7 trên Google Cloud mà <strong>không tốn đồng nào</strong> — cấu hình đúng từng mục để luôn nằm trong hạn mức Always Free.</p>
+
+      <div class="meta">
+        <span class="m"><svg width="15" height="15" aria-hidden="true"><use href="#i-clock"/></svg>12 phút đọc</span>
+        <span class="m"><svg width="15" height="15" aria-hidden="true"><use href="#i-cal"/></svg>Cập nhật 18/11/2026</span>
+        <span class="tags"><span class="meta-tag">Google Cloud</span><span class="meta-tag">Ubuntu</span><span class="meta-tag">Free Tier</span></span>
+      </div>
+
+      <h2 id="s1"><span class="num">01</span><span>Hiểu Rõ Chính Sách “Always Free” Của Google Cloud <a class="anchor" href="#s1" aria-label="Liên kết tới mục">#</a></span></h2>
+      <p>Google Cloud cho mỗi tài khoản một máy <code>e2-micro</code> miễn phí vĩnh viễn — nhưng chỉ khi máy nằm ở đúng region và dùng đúng loại ổ đĩa. Chỉ cần lệch một lựa chọn, hoá đơn sẽ bắt đầu chạy ngay từ giờ đầu tiên.</p>
+      <div class="stats">
+        <div><b>1 × e2-micro</b><span>mỗi tháng, toàn tài khoản</span></div>
+        <div><b>30 GB</b><span>Standard persistent disk</span></div>
+        <div><b>1 GB</b><span>egress ra Internet / tháng</span></div>
+      </div>
+      <p>Chỉ ba region được áp dụng: <code>us-west1</code>, <code>us-central1</code> và <code>us-east1</code>. Trong ba lựa chọn này, Oregon cho độ trễ tốt nhất khi kết nối từ Việt Nam.</p>
+
+      <h2 id="s2"><span class="num">02</span><span>Các Bước Tạo Máy Ảo Chuẩn Free Tier (Chi Tiết Từng Mục) <a class="anchor" href="#s2" aria-label="Liên kết tới mục">#</a></span></h2>
+      <p>Mở trang tạo máy ảo theo đường dẫn sau trong console:</p>
+      <div class="path" aria-label="Đường dẫn trong Google Cloud Console">
+        <span class="lab">Truy cập</span>
+        <span class="chip">Google Cloud Console</span>
+        <span class="arr"><svg width="14" height="14"><use href="#i-chev"/></svg></span>
+        <span class="chip">Compute Engine</span>
+        <span class="arr"><svg width="14" height="14"><use href="#i-chev"/></svg></span>
+        <span class="chip">VM instances</span>
+        <span class="arr"><svg width="14" height="14"><use href="#i-chev"/></svg></span>
+        <span class="chip last">Create Instance</span>
+      </div>
+
+      <h3 id="s2a"><span class="letter">A</span>Machine Configuration <span class="vi">Cấu hình máy</span></h3>
+      <p>Đây là phần quyết định máy có thuộc diện miễn phí hay không. Điền chính xác theo bảng dưới.</p>
+      <div class="spec">
+        <div class="spec-head"><b><svg width="14" height="14" aria-hidden="true"><use href="#i-server"/></svg>Machine configuration</b><span class="ok"><svg width="14" height="14" aria-hidden="true"><use href="#i-check"/></svg>Đủ điều kiện Free Tier</span></div>
+        <dl>
+          <dt>Name</dt>
+          <dd><span class="val">vps-free</span><span class="note">Tên tuỳ ý, chỉ dùng chữ thường và dấu gạch ngang.</span></dd>
+          <dt>Region</dt>
+          <dd><span class="val">us-west1 (Oregon)</span><span class="badge good">Tối ưu nhất cho VN</span></dd>
+          <dt>Zone</dt>
+          <dd><span class="pills"><span class="val">us-west1-a</span><span class="val">us-west1-b</span><span class="val">us-west1-c</span></span><span class="note">Zone nào cũng được, không ảnh hưởng chi phí.</span></dd>
+          <dt>Series</dt>
+          <dd><span class="val">E2</span></dd>
+          <dt>Machine type</dt>
+          <dd><span class="val">e2-micro</span><span class="note">2 vCPU (chia sẻ) · 1 GB RAM</span></dd>
+        </dl>
+      </div>
+
+      <h3 id="s2b"><span class="letter">B</span>Boot Disk <span class="vi">Bước quan trọng nhất</span></h3>
+      <div class="callout warn" role="note">
+        <span class="c-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-warn"/></svg></span>
+        <div class="c-body">
+          <p class="c-title">Bước dễ mất tiền nhất — kiểm tra kỹ trước khi bấm Create</p>
+          <p>Mặc định Google chọn <strong>Balanced persistent disk</strong>. Loại ổ này <strong>không nằm trong Free Tier</strong> và bị tính phí theo GB mỗi tháng.</p>
+          <ul>
+            <li>Không chọn <strong>Ubuntu Pro</strong> hay <strong>Ubuntu Accelerator</strong> — đây là image trả phí bản quyền.</li>
+            <li>Bấm <strong>Change</strong> trong mục Boot disk để đổi loại ổ đĩa trước khi tạo máy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><b><svg width="14" height="14" aria-hidden="true"><use href="#i-shield"/></svg>Boot disk</b><span>Nhấn <strong>Change</strong> để mở</span></div>
+        <dl>
+          <dt>Operating system</dt>
+          <dd><span class="val">Ubuntu</span><span class="badge no">Không chọn Ubuntu Pro</span></dd>
+          <dt>Version</dt>
+          <dd><span class="pills"><span class="val">Ubuntu 24.04 LTS</span><span class="val">22.04 LTS</span></span><span class="note">Chọn bản x86/64, không chọn bản Arm64.</span></dd>
+          <dt class="danger-row">Boot disk type<small>Bắt buộc</small></dt>
+          <dd class="danger-row"><span class="val">Standard persistent disk</span><span class="badge must">Bắt buộc</span><span class="note">Không để mặc định <em>Balanced</em> — sẽ phát sinh phí.</span></dd>
+          <dt>Size</dt>
+          <dd><span class="val">30 GB</span><span class="note">Mức tối đa được miễn phí.</span></dd>
+        </dl>
+      </div>
+
+      <p>Nếu thích dùng dòng lệnh, có thể tạo đúng cấu hình trên chỉ với một lệnh <code>gcloud</code>:</p>
+      <div class="codeblock">
+        <div class="code-head">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="code-tab"><svg width="13" height="13" aria-hidden="true"><use href="#i-term"/></svg>create-vps.sh</span>
+          <span class="code-lang">bash</span>
+          <button class="copy" type="button" data-copy="code1" aria-label="Sao chép mã"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Sao chép</span></button>
+        </div>
+<pre id="code1"><code><span class="ln"><span class="t-com"># Tạo VPS Free Tier ở Oregon</span></span><span class="ln"><span class="t-cmd">gcloud</span> compute instances create <span class="t-val">vps-free</span> <span class="t-op">\</span></span><span class="ln">  <span class="t-flag">--zone</span>=<span class="t-val">us-west1-b</span> <span class="t-op">\</span></span><span class="ln">  <span class="t-flag">--machine-type</span>=<span class="t-val">e2-micro</span> <span class="t-op">\</span></span><span class="ln">  <span class="t-flag">--image-family</span>=<span class="t-val">ubuntu-2404-lts-amd64</span> <span class="t-op">\</span></span><span class="ln">  <span class="t-flag">--image-project</span>=<span class="t-val">ubuntu-os-cloud</span> <span class="t-op">\</span></span><span class="ln">  <span class="t-flag">--boot-disk-type</span>=<span class="t-val">pd-standard</span> <span class="t-op">\</span></span><span class="ln">  <span class="t-flag">--boot-disk-size</span>=<span class="t-val">30GB</span></span></code></pre>
+      </div>
+
+      <h3 id="s2c"><span class="letter">C</span>Backups <span class="vi">Sao lưu</span></h3>
+      <p>Chọn <strong>No backups</strong>. Snapshot tự động bị tính phí lưu trữ riêng và không thuộc Free Tier — nếu cần, hãy tự sao lưu dữ liệu quan trọng về máy cá nhân.</p>
+
+      <h3 id="s2d"><span class="letter">D</span>Networking <span class="vi">Mạng</span></h3>
+      <p>Trong phần <strong>Firewall</strong>, tích chọn cả hai ô:</p>
+      <ul class="list">
+        <li><strong>Allow HTTP traffic</strong> — mở cổng 80</li>
+        <li><strong>Allow HTTPS traffic</strong> — mở cổng 443</li>
+      </ul>
+      <div class="callout tip" role="note">
+        <span class="c-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-bulb"/></svg></span>
+        <div class="c-body">
+          <p class="c-title">Mẹo: giữ Network Service Tier ở Standard</p>
+          <p>Ở mục <strong>Network interface</strong>, đổi tier từ <code>Premium</code> sang <code>Standard</code> để giảm rủi ro phí egress. Nếu định dùng Cloudflare Tunnel, bạn thậm chí không cần mở cổng nào.</p>
+        </div>
+      </div>
+
+      <h3 id="s2e"><span class="letter">E</span>Security &amp; Identity <span class="vi">Bảo mật</span></h3>
+      <p>Giữ nguyên mặc định: Service account <code>Compute Engine default</code>, Access scopes <strong>Allow default access</strong>. Bật <strong>Shielded VM</strong> không tốn thêm chi phí.</p>
+
+      <h2 id="s3"><span class="num">03</span><span>Hướng Dẫn Kết Nối SSH Vào Máy Ảo Google VPS <a class="anchor" href="#s3" aria-label="Liên kết tới mục">#</a></span></h2>
+      <p>Cách nhanh nhất là bấm nút <strong>SSH</strong> ngay cạnh tên máy trong danh sách VM instances — trình duyệt sẽ mở một terminal đã đăng nhập sẵn. Để dùng từ máy cá nhân, thêm public key vào mục <strong>Metadata → SSH Keys</strong> rồi kết nối bằng <code>ssh user@EXTERNAL_IP</code>.</p>
+      <div class="callout note" role="note">
+        <span class="c-ico"><svg width="18" height="18" aria-hidden="true"><use href="#i-info"/></svg></span>
+        <div class="c-body"><p class="c-title">Đọc thêm</p><p>Bài <a href="#">Kết nối SSH với máy Linux</a> hướng dẫn chi tiết cách tạo key và cấu hình <code>~/.ssh/config</code>.</p></div>
+      </div>
+
+      <h2 id="s4"><span class="num">04</span><span>Tối Ưu Hệ Thống: Cấu Hình Swap RAM (Bắt buộc cho máy VPS có Ram 1GB) <a class="anchor" href="#s4" aria-label="Liên kết tới mục">#</a></span></h2>
+      <p>Với 1 GB RAM, chỉ cần chạy <code>apt upgrade</code> hoặc build một image Docker là máy có thể treo. Tạo file swap 2 GB giúp hệ thống ổn định hơn rất nhiều; phần lệnh chi tiết có trong bài <a href="#">Tạo Swap RAM trên Linux VPS</a>.</p>
+
+      <h2 id="s5"><span class="num">05</span><span>Cài Đặt Docker &amp; Docker Compose (Tùy chọn) <a class="anchor" href="#s5" aria-label="Liên kết tới mục">#</a></span></h2>
+      <p>Nếu bạn triển khai ứng dụng bằng container, cài Docker theo kho chính thức của Docker thay vì gói <code>docker.io</code> của Ubuntu để có bản mới nhất và plugin <code>docker compose</code>.</p>
+
+      <h2 id="s6"><span class="num">06</span><span>Checklist Kiểm Tra Cuối Cùng (Tránh Phát Sinh Tiền) <a class="anchor" href="#s6" aria-label="Liên kết tới mục">#</a></span></h2>
+      <p>Trước khi rời trang, kiểm tra lại năm điểm sau:</p>
+      <ul class="checks">
+        <li><span class="box"><svg width="12" height="12"><use href="#i-check"/></svg></span><span>Region là <code>us-west1</code>, <code>us-central1</code> hoặc <code>us-east1</code>.</span></li>
+        <li><span class="box"><svg width="12" height="12"><use href="#i-check"/></svg></span><span>Machine type là <code>e2-micro</code> và chỉ có <strong>một</strong> máy như vậy trong tài khoản.</span></li>
+        <li><span class="box"><svg width="12" height="12"><use href="#i-check"/></svg></span><span>Boot disk là <strong>Standard persistent disk</strong>, dung lượng ≤ 30 GB.</span></li>
+        <li><span class="box"><svg width="12" height="12"><use href="#i-check"/></svg></span><span>Không bật Backups / Snapshot schedule.</span></li>
+        <li><span class="box"><svg width="12" height="12"><use href="#i-check"/></svg></span><span>Đã tạo <strong>Budget alert</strong> ở mức 1 USD trong Billing để được báo sớm.</span></li>
+      </ul>
+
+      <nav class="pager" aria-label="Điều hướng bài viết">
+        <a href="#" class="prev"><small><svg width="14" height="14" aria-hidden="true"><use href="#i-arrow-l"/></svg>Trước</small><span>C++ Shared &amp; Weak Pointers</span></a>
+        <a href="#" class="next"><small>Tiếp theo<svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></small><span>Tạo Swap RAM trên Linux VPS</span></a>
+      </nav>
+
+      <footer class="page-foot">
+        <a href="#"><svg width="15" height="15" aria-hidden="true"><use href="#i-edit"/></svg>Chỉnh sửa trang này trên GitHub</a>
+        <span>Cập nhật lần cuối 18/11/2026</span>
+      </footer>
+    </article>
+  </main>
+
+  <aside class="toc" aria-label="Trên trang này">
+    <p class="toc-title"><svg width="14" height="14" aria-hidden="true"><use href="#i-list"/></svg>Trên trang này</p>
+    <ul class="toc-list" id="toc">
+      <span class="toc-indicator" id="tocInd" aria-hidden="true"></span>
+      <li><a href="#s1">1. Hiểu Rõ Chính Sách “Always Free” Của Google Cloud</a></li>
+      <li><a href="#s2">2. Các Bước Tạo Máy Ảo Chuẩn Free Tier (Chi Tiết Từng Mục)</a></li>
+      <li class="sub"><a href="#s2a">A. Machine Configuration</a></li>
+      <li class="sub"><a href="#s2b">B. Boot Disk</a></li>
+      <li class="sub"><a href="#s2c">C. Backups</a></li>
+      <li class="sub"><a href="#s2d">D. Networking</a></li>
+      <li class="sub"><a href="#s2e">E. Security &amp; Identity</a></li>
+      <li><a href="#s3">3. Hướng Dẫn Kết Nối SSH Vào Máy Ảo Google VPS</a></li>
+      <li><a href="#s4">4. Tối Ưu Hệ Thống: Cấu Hình Swap RAM (Bắt buộc cho máy VPS có Ram 1GB)</a></li>
+      <li><a href="#s5">5. Cài Đặt Docker &amp; Docker Compose (Tùy chọn)</a></li>
+      <li><a href="#s6">6. Checklist Kiểm Tra Cuối Cùng (Tránh Phát Sinh Tiền)</a></li>
+    </ul>
+    <div class="toc-extra">
+      <a href="#"><svg width="14" height="14" aria-hidden="true"><use href="#i-edit"/></svg>Chỉnh sửa trên GitHub</a>
+      <button type="button" id="toTop"><svg width="14" height="14" aria-hidden="true"><use href="#i-up"/></svg>Lên đầu trang</button>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var segBtns = document.querySelectorAll('.seg button');
+
+  function apply(pref) {
+    var dark = pref === 'dark' || (pref === 'system' && mq.matches);
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    root.setAttribute('data-pref', pref);
+    segBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.set === pref)); });
+  }
+  apply(root.getAttribute('data-pref') || 'system');
+  segBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      try { localStorage.setItem('rd-theme', b.dataset.set); } catch (e) {}
+      apply(b.dataset.set);
+    });
+  });
+  mq.addEventListener && mq.addEventListener('change', function () {
+    if (root.getAttribute('data-pref') === 'system') apply('system');
+  });
+
+  // Search shortcut
+  var input = document.getElementById('searchInput');
+  var search = document.getElementById('search');
+  if (!/Mac|iPhone|iPad/.test(navigator.platform || '')) document.getElementById('kbdHint').textContent = 'Ctrl K';
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault(); search.classList.add('open'); input.focus(); input.select();
+    }
+    if (e.key === 'Escape') { closeDrawer(); if (document.activeElement === input) input.blur(); }
+  });
+  search.addEventListener('click', function () { search.classList.add('open'); input.focus(); });
+  input.addEventListener('blur', function () { search.classList.remove('open'); });
+
+  // Sidebar collapse
+  document.querySelectorAll('.group-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var g = btn.closest('.group');
+      var open = g.dataset.open !== 'true';
+      g.dataset.open = String(open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+
+  // Drawer
+  var menuBtn = document.getElementById('menuBtn');
+  function closeDrawer() { document.body.classList.remove('drawer-open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+  menuBtn.addEventListener('click', function () {
+    var open = !document.body.classList.contains('drawer-open');
+    document.body.classList.toggle('drawer-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  document.getElementById('scrim').addEventListener('click', closeDrawer);
+
+  // Copy
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = Array.prototype.map.call(document.getElementById(btn.dataset.copy).querySelectorAll('.ln'), function (l) { return l.textContent; }).join('\n');
+      function ok() {
+        btn.classList.add('done'); btn.querySelector('span').textContent = 'Đã chép';
+        btn.querySelector('use').setAttribute('href', '#i-check');
+        clearTimeout(btn._t); btn._t = setTimeout(function () {
+          btn.classList.remove('done'); btn.querySelector('span').textContent = 'Sao chép';
+          btn.querySelector('use').setAttribute('href', '#i-copy');
+        }, 1800);
+      }
+      function fallback() {
+        var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        ta.remove(); ok();
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallback);
+      else fallback();
+    });
+  });
+
+  // TOC scroll-spy
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var ind = document.getElementById('tocInd');
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  var current = -1;
+  function setActive(i) {
+    if (i === current) return; current = i;
+    links.forEach(function (a, j) { a.classList.toggle('active', j === i); });
+    if (i < 0) { ind.style.opacity = 0; return; }
+    var a = links[i];
+    ind.style.opacity = 1; ind.style.top = a.offsetTop + 'px'; ind.style.height = a.offsetHeight + 'px';
+  }
+  function spy() {
+    var y = window.scrollY + 120, idx = 0;
+    for (var i = 0; i < targets.length; i++) { if (targets[i].offsetTop <= y) idx = i; }
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) idx = targets.length - 1;
+    setActive(idx);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { spy(); ticking = false; }); } }, { passive: true });
+  window.addEventListener('resize', function () { current = -1; spy(); });
+  document.fonts && document.fonts.ready.then(function () { current = -1; spy(); });
+  spy();
+
+  document.getElementById('toTop').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+</script>
+</body>
+</html>
