@@ -1,0 +1,46 @@
+---
+// Thay menu chọn giao diện mặc định bằng một nút: bấm là đổi sáng / tối
+---
+
+<button type="button" class="theme-toggle" aria-label="Chuyển chế độ sáng / tối">
+	<span class="to-light" aria-hidden="true">☀️</span>
+	<span class="to-dark" aria-hidden="true">🌙</span>
+</button>
+
+<script>
+	// Nút xuất hiện hai lần: trên thanh trên và trong menu ☰
+	document.querySelectorAll('.theme-toggle').forEach((button) => {
+		button.addEventListener('click', () => {
+			const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+			document.documentElement.dataset.theme = next;
+			try {
+				localStorage.setItem('starlight-theme', next);
+				localStorage.setItem('theme', next); // dùng chung với trang chủ và Blog
+			} catch {}
+		});
+	});
+</script>
+
+<style>
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 50%;
+		background: transparent;
+		cursor: pointer;
+	}
+	button:hover {
+		background: var(--docs-surface);
+	}
+	.to-dark,
+	:global([data-theme='light']) .to-light {
+		display: none;
+	}
+	:global([data-theme='light']) .to-dark {
+		display: inline;
+	}
+</style>

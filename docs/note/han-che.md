@@ -14,7 +14,6 @@ Ghi ngày 27/11/2026.
 | Trang mục lục viết tay | Thêm bài mới phải tự thêm link | Sửa `src/content/docs/docs/index.md` |
 | Giao diện co giãn ghi đè CSS nội bộ của Starlight (`docs.css`, `PageTitle.astro`) | Nâng cấp Starlight có thể làm lệch bố cục | Xem lại Docs sau mỗi lần nâng cấp |
 | Bài Cloudflare Tunnel có hai mục "Bước 3" (từ bản gốc) | Dễ nhầm thứ tự | Đánh số lại |
-| Đồng bộ sáng / tối giữa Docs và trang chủ chưa được bấm thử | Có thể không giữ đúng lựa chọn | Kiểm tra trên trình duyệt |
 
 ## Phần còn lại của web
 

@@ -28,6 +28,7 @@ export default defineConfig({
 				PageTitle: './src/components/docs/PageTitle.astro',
 				SiteTitle: './src/components/docs/SiteTitle.astro',
 				SocialIcons: './src/components/docs/SocialIcons.astro',
+				ThemeSelect: './src/components/docs/ThemeSelect.astro',
 			},
 			head: [
 				{
@@ -38,11 +39,6 @@ export default defineConfig({
 	if (theme) localStorage.setItem('starlight-theme', theme);
 	// Chưa chọn gì thì Docs dùng nền tối
 	else if (localStorage.getItem('starlight-theme') === null) localStorage.setItem('starlight-theme', 'dark');
-	document.addEventListener('change', (event) => {
-		if (!event.target.closest('starlight-theme-select')) return;
-		const value = event.target.value;
-		value === 'auto' ? localStorage.removeItem('theme') : localStorage.setItem('theme', value);
-	});
 } catch {}`,
 				},
 				{
