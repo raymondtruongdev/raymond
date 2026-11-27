@@ -89,7 +89,7 @@ Sửa token sẽ **đổi cả Docs**. Riêng `--glow` được trang chủ ghi 
 ## 5. Cách thay đổi thường gặp
 
 - **Thêm chỗ làm:** thêm một phần tử vào đầu mảng `experiences` trong `profile.ts`.
-- **Đổi CV:** chép file mới vào `public/`, sửa `cvFile`. File này công khai với mọi người, nên kiểm tra thông tin cá nhân trong đó trước.
+- **Đổi CV:** CV nằm trên Google Drive, sửa `cvUrl` trong `profile.ts`. Ai có link đều xem được, nên kiểm tra thông tin cá nhân trong đó trước.
 - **Bài viết mới:** thêm file vào `src/content/blog/`. Tag trên thẻ là `category`.
 - **Thêm icon:** thêm `<symbol id="i-tên">` vào `Icons.astro`, dùng `<Icon name="tên" />`.
 - **Chữ viết thẳng trong component:** H1 và lede (`Hero`), logo công ty (`ProofStrip`), câu phụ (`Timeline`), đoạn giới thiệu (`About`), lời mời (`ContactCTA`).
