@@ -1,0 +1,16 @@
+---
+import { github, location } from '../../data/profile';
+import { url } from '../../lib/url';
+---
+
+<footer class="footer">
+	<div class="footer-in">
+		<span>© {new Date().getFullYear()} Raymond Truong <span class="mono">· {location}</span></span>
+		<nav aria-label="Chân trang">
+			<a href={url('blog/')}>Blog</a>
+			<a href={url('docs/')}>Docs</a>
+			<a href={github} target="_blank" rel="noopener">GitHub</a>
+			<a href="#top">Lên đầu trang</a>
+		</nav>
+	</div>
+</footer>

@@ -1,0 +1,15 @@
+---
+import { email, github } from '../../data/profile';
+import Icon from './Icon.astro';
+---
+
+<section class="cta reveal" id="lien-he" aria-labelledby="h-cta">
+	<div>
+		<h2 id="h-cta">Cùng làm dự án tiếp theo</h2>
+		<p>Trao đổi về AI, hệ thống nhúng hoặc tự động hóa.</p>
+	</div>
+	<div class="actions">
+		<a class="btn btn-primary" href={`mailto:${email}`}><Icon name="mail" size={17} />Gửi email</a>
+		<a class="btn btn-secondary" href={github} target="_blank" rel="noopener"><Icon name="gh" size={17} />GitHub</a>
+	</div>
+</section>

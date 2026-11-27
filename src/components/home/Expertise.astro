@@ -1,0 +1,27 @@
+---
+import { expertise } from '../../data/profile';
+import Icon from './Icon.astro';
+---
+
+<section class="section" id="chuyen-mon" aria-labelledby="h-chuyen-mon">
+	<div class="sec-head reveal">
+		<div>
+			<p class="sec-num">01 <span>— Lĩnh vực</span></p>
+			<h2 id="h-chuyen-mon">Lĩnh vực chuyên môn</h2>
+		</div>
+	</div>
+	<div class="cards">
+		{
+			expertise.map((item) => (
+				<article class="card reveal">
+					<span class="k">{item.key}</span>
+					<div class="ico">
+						<Icon name={item.icon} size={22} />
+					</div>
+					<h3>{item.title}</h3>
+					<p>{item.text}</p>
+				</article>
+			))
+		}
+	</div>
+</section>

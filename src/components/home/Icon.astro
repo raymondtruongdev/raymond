@@ -1,0 +1,12 @@
+---
+// Icon từ sprite trong Icons.astro
+interface Props {
+	name: string;
+	size?: number;
+	class?: string;
+}
+
+const { name, size = 16, class: className } = Astro.props;
+---
+
+<svg width={size} height={size} class={className} aria-hidden="true"><use href={`#i-${name}`}></use></svg>

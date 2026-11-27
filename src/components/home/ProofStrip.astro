@@ -1,0 +1,26 @@
+---
+import { stats } from '../../data/profile';
+---
+
+<section class="proof reveal" aria-label="Thành tích">
+	<div class="stat-row">
+		{
+			stats.map((stat) => (
+				<div class="stat">
+					<b>
+						{stat.value}
+						{stat.plus && <span class="acc">+</span>}
+						{stat.unit && <small>{stat.unit}</small>}
+					</b>
+					<span>{stat.label}</span>
+				</div>
+			))
+		}
+	</div>
+	<div class="logos">
+		<span class="lab">Từng làm việc tại</span>
+		<span class="wm wm-fossil">FOSSIL</span>
+		<span class="wm wm-mijo">mijo</span>
+		<span class="wm wm-hcmut"><i>BK</i>ĐH Bách Khoa TP.HCM</span>
+	</div>
+</section>

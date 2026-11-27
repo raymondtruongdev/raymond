@@ -1,0 +1,20 @@
+---
+import { cvFile, experiences } from '../../data/profile';
+import { url } from '../../lib/url';
+import Icon from './Icon.astro';
+import TimelineItem from './TimelineItem.astro';
+---
+
+<section class="section" id="kinh-nghiem" aria-labelledby="h-kinh-nghiem">
+	<div class="exp-grid">
+		<div class="exp-aside reveal">
+			<p class="sec-num">02 <span>— Kinh nghiệm</span></p>
+			<h2 id="h-kinh-nghiem">Kinh nghiệm làm việc</h2>
+			<p class="sec-sub">Từ phòng lab robot tại Bách Khoa đến thuật toán trên hàng triệu chiếc smartwatch.</p>
+			<a class="btn btn-secondary btn-sm" href={url(cvFile)} download>Tải CV (PDF) <Icon name="down" /></a>
+		</div>
+		<ol class="timeline">
+			{experiences.map((job, i) => <TimelineItem {...job} id={`tl${i + 1}`} current={i === 0} />)}
+		</ol>
+	</div>
+</section>

@@ -1,0 +1,45 @@
+---
+import { url } from '../../lib/url';
+import ThemeSelect from '../docs/ThemeSelect.astro';
+import Icon from './Icon.astro';
+
+const links = [
+	{ title: 'Giới thiệu', href: '#gioi-thieu' },
+	{ title: 'Kinh nghiệm', href: '#kinh-nghiem' },
+	{ title: 'Blog', href: '#blog' },
+	{ title: 'Docs', href: url('docs/') },
+];
+---
+
+<header class="header">
+	<div class="header-in">
+		<a class="brand" href="#top" aria-label="Raymond — trang chủ">
+			<span class="brand-mark" aria-hidden="true">R</span>
+			Raymond
+		</a>
+		<nav class="nav" aria-label="Chính">
+			{links.map((link) => <a href={link.href}>{link.title}</a>)}
+		</nav>
+		<div class="header-right">
+			<ThemeSelect />
+			<a class="btn btn-primary btn-sm" href="#lien-he">Liên hệ</a>
+			<button class="icon-btn" id="menuBtn" type="button" aria-label="Mở menu" aria-controls="drawer" aria-expanded="false">
+				<Icon name="menu" size={20} />
+			</button>
+		</div>
+	</div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<div class="drawer" id="drawer">
+	<nav aria-label="Di động">
+		{
+			links.map((link) => (
+				<a href={link.href}>
+					{link.title} <Icon name="chev-r" size={18} />
+				</a>
+			))
+		}
+	</nav>
+	<a class="btn btn-primary" href="#lien-he">Liên hệ</a>
+</div>

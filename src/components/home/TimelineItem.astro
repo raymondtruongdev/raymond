@@ -1,0 +1,49 @@
+---
+import type { Experience } from '../../data/profile';
+import Icon from './Icon.astro';
+
+interface Props extends Experience {
+	id: string;
+	current?: boolean;
+}
+
+const { id, current, role, company, period, points, more = [], tags } = Astro.props;
+---
+
+<li class:list={['tl-item reveal', { current }]}>
+	<span class="tl-node" aria-hidden="true"></span>
+	<div class="tl-card" id={id}>
+		<div class="tl-top">
+			<h3 class="tl-role">{role} <span class="at">@</span> <span class="co">{company}</span></h3>
+			<span class="tl-years">{period}</span>
+		</div>
+		<ul class="tl-list">
+			{
+				points.map((point) => (
+					<li>
+						<Icon name="check" />
+						{point}
+					</li>
+				))
+			}
+			{
+				more.map((point) => (
+					<li class="more">
+						<Icon name="check" />
+						{point}
+					</li>
+				))
+			}
+		</ul>
+		<div class="tl-foot">
+			<div class="tags">{tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+			{
+				more.length > 0 && (
+					<button class="toggle" type="button" aria-expanded="false" aria-controls={id}>
+						<span>Xem thêm</span> <Icon name="chev-d" size={15} />
+					</button>
+				)
+			}
+		</div>
+	</div>
+</li>

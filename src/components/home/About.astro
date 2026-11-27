@@ -1,0 +1,53 @@
+---
+import { education, languages, skills } from '../../data/profile';
+import Icon from './Icon.astro';
+---
+
+<section class="section" id="gioi-thieu" aria-labelledby="h-gioi-thieu">
+	<div class="sec-head reveal">
+		<div>
+			<p class="sec-num">03 <span>— Giới thiệu</span></p>
+			<h2 id="h-gioi-thieu">Giới thiệu, kỹ năng &amp; học vấn</h2>
+		</div>
+	</div>
+	<div class="about reveal">
+		<div>
+			<p class="mini"><Icon name="user" size={15} />Về tôi</p>
+			<p class="bio">
+				Kinh nghiệm thiết kế thiết bị <strong>Tự động hóa</strong> kết hợp <strong>Machine Learning</strong>. Đam mê tối
+				ưu hóa hiệu năng phần cứng và xây dựng các giải pháp thông minh cho hệ sinh thái IoT.
+			</p>
+			<div class="skill-tags" role="group" aria-label="Kỹ năng">
+				{skills.map((skill) => <span class="tag">{skill}</span>)}
+			</div>
+		</div>
+		<div>
+			<p class="mini"><Icon name="cap" size={15} />Học vấn · HCMUT</p>
+			<ul class="edu">
+				{
+					education.map((item) => (
+						<li>
+							<b>{item.degree}</b>
+							<span>
+								{item.grade} · <span class="yr">{item.period}</span>
+							</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+		<div>
+			<p class="mini"><Icon name="lang" size={15} />Ngôn ngữ</p>
+			<dl class="langs">
+				{
+					languages.map((lang) => (
+						<div>
+							<dt>{lang.name}</dt>
+							<dd>{lang.level}</dd>
+						</div>
+					))
+				}
+			</dl>
+		</div>
+	</div>
+</section>

@@ -34,6 +34,7 @@ export default defineConfig({
 				'@fontsource/inter/600.css',
 				'@fontsource/jetbrains-mono/400.css',
 				'@fontsource/jetbrains-mono/500.css',
+				'./src/styles/tokens.css',
 				'./src/styles/raymond-theme.css',
 			],
 			// Khung code luôn tối ở cả hai giao diện

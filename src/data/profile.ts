@@ -1,78 +1,121 @@
 // Nội dung CV. Sửa ở đây, trang chủ tự cập nhật.
-export const experiences = [
+export const email = 'quoctoan2202@gmail.com';
+export const github = 'https://github.com/raymondtruongdev';
+export const location = 'TP. Hồ Chí Minh';
+// File trong public/
+export const cvFile = 'CV_TQT_202609_EN.pdf';
+
+export const stats = [
+	{ value: '15', plus: true, unit: 'năm', label: 'kinh nghiệm' },
+	{ value: '5', unit: 'năm', label: 'AI wearable @ Fossil' },
+	{ value: '6', unit: 'năm', label: 'giảng dạy @ HCMUT' },
+	{ value: 'Thạc sĩ', label: 'Cơ điện tử (Xuất sắc)' },
+];
+
+export const expertise = [
 	{
-		role: 'Freelancer',
-		time: '2025 - Hiện tại',
-		groups: [
-			{
-				items: [
-					'Phát triển ứng dụng cho thiết bị Android Open Source Project (AOSP).',
-					'Phát triển các dự án cá nhân đa nền tảng: Android, WearOS, iOS.',
-					'Thiết kế Robot Arm kết hợp AI cho các tác vụ tự động hóa công nghiệp và gia dụng.',
-					'Xây dựng hệ thống RTOS đa thiết bị với cấu trúc base code đồng nhất.',
-				],
-			},
+		icon: 'brain',
+		key: 'AI',
+		title: 'AI / Machine Learning',
+		text: 'Thuật toán cho thiết bị đeo: nhận diện hoạt động, Sleep Tracking, Body Composition.',
+	},
+	{ icon: 'chip', key: 'RTOS', title: 'Embedded / RTOS', text: 'Hệ thống RTOS đa thiết bị và SDK đồ họa với thư viện LVGL.' },
+	{
+		icon: 'phone',
+		key: 'AOSP',
+		title: 'Android / AOSP',
+		text: 'Ứng dụng cho AOSP, Android, WearOS, iOS: Watchface, Launcher, Chatbot.',
+	},
+	{ icon: 'bot', key: 'PLC', title: 'Tự động hóa & Robotics', text: 'Robot Arm kết hợp AI, robot hàn tự động, hệ thống PLC và Servo.' },
+];
+
+export interface Experience {
+	role: string;
+	company: string;
+	period: string;
+	// Ba ý luôn hiện; `more` hiện khi bấm "Xem thêm"
+	points: string[];
+	more?: string[];
+	tags: string[];
+}
+
+export const experiences: Experience[] = [
+	{
+		role: 'Senior Firmware Engineer',
+		company: 'T2DTECH',
+		period: '2025 – Hiện tại',
+		points: [
+			'Firmware cho gateway giám sát trung tâm trên Zephyr RTOS, cập nhật OTA',
+			'Thu dữ liệu từ các thiết bị BLE beacon và gửi lên AWS qua Wi-Fi',
+			'Giao diện web truyền dữ liệu thời gian thực và truyền file qua Web BLE, UART',
 		],
+		more: [
+			'Robot Arm 6 bậc tự do in 3D: viết chữ, phân loại vật, tự chơi cờ',
+			'Tham gia xây dựng lớp trừu tượng firmware RTOS đa nền tảng (STM32, Apollo3, BES)',
+		],
+		tags: ['Zephyr RTOS', 'BLE', 'AWS', 'Robotics'],
 	},
 	{
-		role: 'Software Engineer @ Mijo Vietnam',
-		time: '2023 - 2025',
-		groups: [
-			{
-				items: [
-					'Phát triển hệ sinh thái ứng dụng cho thiết bị IoT: Watchface, Launcher, Chatbot, Weather, Calendar, Navigation.',
-					'Porting OpenGL + Kotlin để tối ưu hóa hiệu suất render Watchface for AOSP.',
-					'Phát triển SDK đồ họa cho các thiết bị RTOS sử dụng thư viện LVGL.',
-				],
-			},
+		role: 'Senior Software Engineer',
+		company: 'Mijo Vietnam',
+		period: '2023 – 2025',
+		points: [
+			'Hệ sinh thái ứng dụng IoT: Watchface, Launcher, Chatbot, Weather, Calendar, Navigation',
+			'Tham gia porting OpenGL + Kotlin tối ưu render Watchface cho AOSP',
+			'Tham gia phát triển SDK đồ họa cho thiết bị RTOS dùng LVGL',
 		],
+		tags: ['Kotlin', 'OpenGL', 'AOSP', 'LVGL'],
 	},
 	{
-		role: 'Senior AI Engineer @ Fossil Vietnam',
-		time: '2018 - 2023',
-		groups: [
-			{
-				items: [
-					'Nghiên cứu và cải tiến tối ưu thuật toán đếm bước chân (Pedometer), giúp giảm thiểu sai số và tăng độ chính xác khi theo dõi hoạt động hàng ngày.',
-					'Cải tiến thuật toán Sleep Tracking, phân biệt trạng thái nghỉ ngơi và ngủ thật sự.',
-					'Phát triển thuật toán nhận diện hoạt động thể chất (Activity Recognition) để phân loại đi bộ, chạy, đạp xe, rowing, elliptical, sau đó đếm reps cho các hoạt động có tính lặp lại.',
-					'Phát triển thuật toán Machine Learning dùng cảm biến trên đồng hồ thông minh để phân tích thành phần cơ thể (Body Composition).',
-					'Thiết lập protocol, thực nghiệm kiểm định (Validation) hiệu năng đo Heart Rate và SpO2 trên thiết bị đeo. Phối hợp cùng third-party vendors cải tiến thuật toán Heart Rate, SpO2.',
-				],
-			},
+		role: 'Staff AI Algorithm Engineer',
+		company: 'Fossil Vietnam',
+		period: '2018 – 2023',
+		points: [
+			'Dẫn dắt nhóm nghiên cứu thuật toán cảm biến cho smartwatch, hướng dẫn thành viên và thực tập sinh',
+			'Nhận diện hoạt động trên thiết bị: đi bộ, chạy, đạp xe, rowing, elliptical',
+			'Cải tiến Sleep Tracking: số phiên thức nằm yên bị nhận nhầm giảm từ khoảng 300 xuống 100 trên 10.000',
 		],
+		more: [
+			'Double-Tap Wake-Up: giảm khoảng 80% số lần kích hoạt nhầm',
+			'Đếm bước: hướng dẫn nhóm giảm hơn 90% bước đếm sai khi rung mạnh (xe máy, xe buýt)',
+			'Nhận biết đang đeo hay đã tháo đồng hồ, đếm số tầng đã leo',
+			'Protocol kiểm định Heart Rate, SpO2 và đánh giá giải pháp của các vendor',
+		],
+		tags: ['Machine Learning', 'Signal Processing', 'Sensors'],
 	},
 	{
-		role: 'Lecturer @ HCMUT',
-		time: '2012 - 2018',
-		groups: [
-			{
-				title: 'Giảng dạy',
-				items: [
-					'Giảng dạy các môn Microcontroller, PLC, Automation systems, AC Servo control, Industrial Robotics.',
-					'Soạn bài giảng và bài thực hành kết hợp lý thuyết với thực hành, giúp sinh viên nắm vững kiến thức và kỹ năng thực tế.',
-				],
-			},
-			{
-				title: 'Chuyển giao công nghệ',
-				items: [
-					'Hệ thống quản lý đơn hàng dựa trên Barcode: sản phẩm trên băng tải được PC, PLC, Servo motor, xylanh khí nén điều khiển để tự động phân loại vào các khay theo đơn hàng.',
-					'Hệ thống kiểm tra, đo áp lực gối cao su thành phẩm và lưu vào cơ sở dữ liệu bằng PLC + Visual Studio application.',
-				],
-			},
+		role: 'Lecturer',
+		company: 'ĐH Bách Khoa TP.HCM',
+		period: '2016 – 2018',
+		points: [
+			'Giảng dạy PLC, vi điều khiển, robot công nghiệp',
+			'Máy kiểm tra độ êm gối cao su cho Kymdan: PLC, C#, SQL, RS-485',
+			'Hệ thống phân loại dược phẩm tự động cho DHG Pharma: băng tải, barcode, PLC',
 		],
+		tags: ['PLC', 'Microcontroller', 'C#', 'SQL'],
 	},
 	{
-		role: 'Researcher Engineer @ Hitech Lab (HCMUT)',
-		time: '2010 - 2012',
-		groups: [
-			{
-				items: [
-					'Thiết kế chế tạo robot hàn tự động tracking cho các mối hàn thẳng trên mặt phẳng và trên các vách trần.',
-					'Thiết kế và lập trình hệ thống tự động hóa thông minh để kiểm soát nhiệt độ, độ ẩm và tưới cây trong nhà kính.',
-				],
-			},
+		role: 'Research Scholar',
+		company: 'NTU Singapore',
+		period: '2014 – 2016',
+		points: [
+			'Nghiên cứu tái tạo 3D cơ thể người từ một camera smartphone',
+			'Trích đặc trưng, ước lượng vị trí camera, Structure-from-Motion',
+			'Trợ giảng phòng thí nghiệm Vật lý đại cương',
 		],
+		tags: ['Computer Vision', '3D Reconstruction'],
+	},
+	{
+		role: 'Lecturer',
+		company: 'ĐH Bách Khoa TP.HCM',
+		period: '2010 – 2014',
+		points: [
+			'Giảng dạy tự động hóa sản xuất, trợ giảng Động lực học hệ thống',
+			'Robot di động làm vệ sinh ống gió',
+			'Hệ thống tự động tưới và điều khiển khí hậu cho nhà kính tại Đà Lạt',
+		],
+		more: ['Hướng dẫn đồ án sinh viên về tự động hóa sản xuất'],
+		tags: ['Robotics', 'Control', 'Automation'],
 	},
 ];
 
@@ -88,11 +131,11 @@ export const skills = [
 ];
 
 export const education = [
-	{ degree: 'Master - Mechatronics (Excellent)', time: '2012 - 2014' },
-	{ degree: 'Engineer - Mechanical Engineering (Good)', time: '2005 - 2010' },
+	{ degree: 'Thạc sĩ Cơ điện tử', grade: 'Xuất sắc', period: '2012 – 2013' },
+	{ degree: 'Kỹ sư Cơ khí', grade: 'Khá', period: '2005 – 2010' },
 ];
 
 export const languages = [
 	{ name: 'Tiếng Việt', level: 'Bản ngữ' },
-	{ name: 'Tiếng Anh', level: 'TOEIC' },
+	{ name: 'Tiếng Anh', level: 'Thành thạo' },
 ];

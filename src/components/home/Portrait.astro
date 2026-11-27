@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import avatar from '../../assets/avatar.png';
+import Icon from './Icon.astro';
+---
+
+<figure class="portrait">
+	<div class="frame">
+		<Image
+			src={avatar}
+			width={587}
+			height={587}
+			alt="Chân dung Raymond Truong, kỹ sư phần mềm, trên nền họa tiết mạch điện tử"
+			loading="eager"
+			fetchpriority="high"
+		/>
+	</div>
+	<figcaption class="float-card">
+		<span class="fc-ico" aria-hidden="true"><Icon name="watch" size={20} /></span>
+		<span><b>5 năm</b><span>AI cho thiết bị đeo @ Fossil</span></span>
+	</figcaption>
+</figure>

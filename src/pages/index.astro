@@ -1,178 +1,27 @@
 ---
-import PostCard from '../components/PostCard.astro';
-import { education, experiences, languages, skills } from '../data/profile';
-import Layout from '../layouts/Layout.astro';
-import { getPosts } from '../lib/posts';
-import { url } from '../lib/url';
-
-const posts = (await getPosts()).slice(0, 3);
-
-const services = [
-	{
-		icon: '🤖',
-		title: 'AI / Machine Learning',
-		text: 'Thuật toán cho thiết bị đeo: nhận diện hoạt động, Sleep Tracking, Body Composition.',
-	},
-	{
-		icon: '🔌',
-		title: 'Embedded / RTOS',
-		text: 'Hệ thống RTOS đa thiết bị và SDK đồ họa với thư viện LVGL.',
-	},
-	{
-		icon: '📱',
-		title: 'Android / AOSP',
-		text: 'Ứng dụng cho AOSP, Android, WearOS, iOS: Watchface, Launcher, Chatbot.',
-	},
-	{
-		icon: '⚙️',
-		title: 'Tự động hóa & Robotics',
-		text: 'Robot Arm kết hợp AI, robot hàn tự động, hệ thống PLC và Servo.',
-	},
-];
-
-const container = 'mx-auto w-full max-w-7xl px-5 sm:px-8';
-const title = 'text-2xl font-semibold sm:text-3xl md:text-4xl';
-const card = 'bg-card border-border relative overflow-hidden rounded-3xl border p-6 shadow-lg shadow-slate-200/50 lg:p-8 dark:shadow-none';
-const primary = 'bg-primary text-primary-foreground rounded-full px-6 py-3 font-medium transition hover:bg-[#172554]';
-const gradient = 'bg-gradient-to-br from-indigo-600 via-blue-600 to-green-600 bg-clip-text text-transparent';
+import About from '../components/home/About.astro';
+import ContactCTA from '../components/home/ContactCTA.astro';
+import Expertise from '../components/home/Expertise.astro';
+import Hero from '../components/home/Hero.astro';
+import LatestPosts from '../components/home/LatestPosts.astro';
+import ProofStrip from '../components/home/ProofStrip.astro';
+import Timeline from '../components/home/Timeline.astro';
+import HomeLayout from '../layouts/HomeLayout.astro';
 ---
 
-<Layout title="Raymond Truong | Software Engineer">
-	<div class="flex flex-col gap-y-20 md:gap-y-32">
-		<section class="relative pt-8 lg:pt-16">
-			<span class="from-primary absolute -top-10 left-0 size-48 rounded-full bg-gradient-to-tr to-green-400 opacity-30 blur-3xl"></span>
-			<div class={`${container} relative flex flex-col items-center gap-12 lg:flex-row`}>
-				<div class="max-w-3xl flex-1 text-center lg:text-left">
-					<h1 class="text-3xl/tight font-bold sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight">
-						Raymond Truong, <span class={gradient}>Software Engineer</span> / Embedded Developer
-					</h1>
-					<p class="text-muted-foreground mt-8 md:text-lg">
-						Kỹ sư phần mềm chuyên sâu về Trí tuệ nhân tạo (AI) và Hệ thống nhúng (Embedded). 📍 Ho Chi Minh City
-					</p>
-					<div class="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
-						<a href="#contact" class={primary}>Liên hệ</a>
-						<a href="https://github.com/raymondtruongdev" class="border-border text-primary rounded-full border px-6 py-3 font-medium">GitHub</a>
-					</div>
-				</div>
-				<div class="relative flex flex-1 justify-center">
-					<span class="bg-primary absolute right-8 bottom-4 size-24 rounded-3xl opacity-60 blur-2xl"></span>
-					<span class="absolute top-4 left-8 size-24 rotate-90 rounded-3xl bg-green-400 opacity-70 blur-2xl"></span>
-					<img src={url('avatar.png')} alt="Ảnh đại diện Raymond Truong" width="587" height="587" class="relative w-full max-w-sm" />
-				</div>
-			</div>
-		</section>
+<HomeLayout
+	title="Raymond Truong | Software Engineer"
+	description="Raymond Truong — Software Engineer: thuật toán AI và phần mềm nhúng cho thiết bị đeo thông minh, RTOS, Android/AOSP, tự động hóa."
+>
+	<Hero />
+	<ProofStrip />
+	<Expertise />
+	<Timeline />
+	<About />
+	<LatestPosts />
+	<ContactCTA />
+</HomeLayout>
 
-		<section id="services" class="scroll-mt-24">
-			<div class={`${container} space-y-10`}>
-				<h2 class={`${title} text-center`}>Lĩnh vực chuyên môn</h2>
-				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-					{
-						services.map((item) => (
-							<div class={card}>
-								<div class="bg-muted w-max rounded-xl p-3 text-xl dark:bg-gray-950">{item.icon}</div>
-								<h3 class="mt-6 mb-4 text-lg font-semibold md:text-xl">{item.title}</h3>
-								<p class="text-muted-foreground">{item.text}</p>
-								<span class="bg-primary/10 absolute -right-16 -bottom-16 size-32 rounded-full" />
-							</div>
-						))
-					}
-				</div>
-			</div>
-		</section>
-
-		<section id="about" class="scroll-mt-24">
-			<div class={`${container} grid gap-10 lg:grid-cols-2`}>
-				<div>
-					<h2 class={title}>Giới thiệu</h2>
-					<p class="text-muted-foreground mt-8 md:text-lg">
-						Kinh nghiệm thiết kế thiết bị Tự động hóa kết hợp Machine Learning. Đam mê tối ưu hóa hiệu năng phần
-						cứng và xây dựng các giải pháp thông minh cho hệ sinh thái IoT.
-					</p>
-					<ul class="mt-8 flex flex-wrap gap-3">
-						{skills.map((skill) => <li class="border-border bg-card rounded-full border px-4 py-2 text-sm font-semibold">{skill}</li>)}
-					</ul>
-				</div>
-				<div class="grid gap-4 sm:grid-cols-2 sm:self-start">
-					<div class={card}>
-						<h3 class="mb-4 text-lg font-semibold">Học vấn</h3>
-						<p class="mb-4 font-medium">Ho Chi Minh City University of Technology</p>
-						{
-							education.map((edu) => (
-								<p class="text-muted-foreground mb-3">
-									{edu.degree}
-									<span class="block text-sm">{edu.time}</span>
-								</p>
-							))
-						}
-					</div>
-					<div class={card}>
-						<h3 class="mb-4 text-lg font-semibold">Ngôn ngữ</h3>
-						{
-							languages.map((lang) => (
-								<p class="mb-3 flex justify-between gap-3">
-									<span class="text-muted-foreground">{lang.name}</span>
-									<span class="text-primary font-semibold">{lang.level}</span>
-								</p>
-							))
-						}
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section id="experience" class="scroll-mt-24">
-			<div class={`${container} max-w-4xl space-y-8`}>
-				<h2 class={`${title} text-center`}>Kinh nghiệm làm việc</h2>
-				{
-					experiences.map((job) => (
-						<article class={card}>
-							<div class="flex flex-wrap items-center justify-between gap-3">
-								<h3 class="text-lg font-semibold md:text-xl">{job.role}</h3>
-								<span class="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-semibold">{job.time}</span>
-							</div>
-							{job.groups.map((group) => (
-								<>
-									{group.title && <h4 class="text-primary mt-4 font-semibold">{group.title}</h4>}
-									<ul class="text-muted-foreground mt-4 space-y-3">
-										{group.items.map((item) => (
-											<li class="flex gap-3">
-												<span class="text-primary font-bold">✓</span>
-												<span>{item}</span>
-											</li>
-										))}
-									</ul>
-								</>
-							))}
-						</article>
-					))
-				}
-			</div>
-		</section>
-
-		<section>
-			<div class={`${container} space-y-8`}>
-				<div class="flex flex-wrap items-end justify-between gap-3">
-					<h2 class={title}>Bài viết mới</h2>
-					<a href={url('blog/')} class="text-primary font-semibold">Xem tất cả →</a>
-				</div>
-				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-					{posts.map((post) => <PostCard post={post} />)}
-				</div>
-			</div>
-		</section>
-
-		<section id="contact" class="scroll-mt-24">
-			<div class={container}>
-				<div class="relative overflow-hidden rounded-2xl bg-gradient-to-tr from-gray-100 to-gray-200 px-6 py-10 text-center dark:from-gray-900 dark:to-gray-950">
-					<span class="bg-primary absolute -bottom-8 -left-8 size-24 rounded-full opacity-50 blur-2xl"></span>
-					<span class="absolute -top-8 -right-8 size-24 rounded-full bg-green-500 opacity-50 blur-2xl"></span>
-					<h2 class="relative text-3xl/tight font-bold sm:text-4xl/tight">
-						Cùng làm <span class={gradient}>dự án</span> tiếp theo
-					</h2>
-					<p class="text-muted-foreground relative mt-6 md:text-lg">Trao đổi về AI, hệ thống nhúng hoặc tự động hóa.</p>
-					<a href="mailto:quoctoan2202@gmail.com" class={`${primary} relative mt-8 inline-block break-all`}>quoctoan2202@gmail.com</a>
-				</div>
-			</div>
-		</section>
-	</div>
-</Layout>
+<script>
+	import '../scripts/home-ui';
+</script>

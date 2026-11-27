@@ -1,0 +1,65 @@
+---
+// Layout riêng của trang chủ. Blog vẫn dùng Layout.astro (Tailwind).
+import '@fontsource/be-vietnam-pro/500.css';
+import '@fontsource/be-vietnam-pro/600.css';
+import '@fontsource/be-vietnam-pro/700.css';
+import '@fontsource/be-vietnam-pro/800.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/tokens.css';
+import '../styles/home.css';
+import Footer from '../components/home/Footer.astro';
+import Header from '../components/home/Header.astro';
+import Icons from '../components/home/Icons.astro';
+import { url } from '../lib/url';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+		<link rel="icon" href={url('favicon.ico')} />
+		<title>{title}</title>
+		<script is:inline>
+			// Chạy trước khi vẽ trang để không nháy màu. Key giống Docs và Blog.
+			(() => {
+				let pref;
+				try {
+					// Blog chỉ ghi `theme`, nên chép sang key của Starlight
+					const theme = localStorage.getItem('theme');
+					if (theme) localStorage.setItem('starlight-theme', theme);
+					pref = localStorage.getItem('starlight-theme');
+				} catch {}
+				const light = pref === 'light' || (pref !== 'dark' && matchMedia('(prefers-color-scheme: light)').matches);
+				document.documentElement.dataset.theme = light ? 'light' : 'dark';
+				document.documentElement.classList.add('js');
+			})();
+		</script>
+	</head>
+	<body>
+		<a class="skip" href="#main">Bỏ qua tới nội dung</a>
+		<div class="page-glow" aria-hidden="true"></div>
+		<Icons />
+		<Header />
+		<main id="main">
+			<div class="wrap" id="top">
+				<slot />
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
