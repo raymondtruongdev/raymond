@@ -250,11 +250,19 @@ h1#_top { margin: 0 0 18px; font: 800 clamp(30px, 4.2vw, 42px)/1.18 var(--headin
 .sl-markdown-content .sl-heading-wrapper.level-h3 { margin-top: 40px; }
 .sl-markdown-content h2 { font-size: 26px; line-height: 1.3; font-weight: 700; }
 .sl-markdown-content h3 { font-size: 19.5px; line-height: 1.4; font-weight: 700; }
-.sl-markdown-content h2 .num { font: 500 15px/1 'JetBrains Mono', monospace; color: var(--accent); letter-spacing: 0; margin-inline-end: 8px; vertical-align: 3px; }
-.sl-markdown-content h3 :is(.letter, .num) {
-	display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding-inline: 5px; margin-inline-end: 6px; vertical-align: middle; position: relative; top: -2px;
-	font: 700 13px/1 var(--heading-font); letter-spacing: 0; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 8px;
+/* Ô số (H2) và ô chữ (H3) ở đầu tiêu đề */
+.sl-markdown-content :is(h2, h3) :is(.num, .letter) {
+	display: inline-flex; align-items: center; justify-content: center; min-width: 1.35em; height: 1.35em; padding-inline: .3em;
+	margin-inline-end: .5em; vertical-align: middle; position: relative; top: -.08em;
+	font-family: var(--heading-font); font-size: .72em; font-weight: 700; line-height: 1; letter-spacing: 0;
+	color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 8px;
 }
+.sl-markdown-content :is(h2, h3) .dot-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+/* Icon liên kết cạnh tiêu đề: nhỏ và mờ. Vị trí, ẩn/hiện theo Starlight */
+.sl-markdown-content .sl-heading-wrapper { --sl-anchor-icon-size: .65em; --sl-anchor-icon-gap: .4em; }
+.sl-markdown-content .sl-anchor-link { color: var(--faint); }
+.sl-markdown-content .sl-anchor-link:hover { color: var(--accent); }
 
 .sl-markdown-content ul:not(.contains-task-list):not(:where(.not-content *)) { list-style: none; padding-inline-start: 0; }
 .sl-markdown-content ul:not(.contains-task-list):not(:where(.not-content *)) > li { position: relative; padding-inline-start: 22px; }
@@ -265,8 +273,6 @@ h1#_top { margin: 0 0 18px; font: 800 clamp(30px, 4.2vw, 42px)/1.18 var(--headin
 .sl-markdown-content code:not(:where(.not-content *)) {
 	font-size: .86em; color: var(--code-inline-text); background: var(--code-inline-bg); border: 1px solid var(--code-inline-border); padding: .12em .42em; border-radius: 6px; margin-block: 0; overflow-wrap: anywhere;
 }
-
-.sl-markdown-content h3 .dot-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
 /* Checklist */
 .sl-markdown-content ul.contains-task-list { list-style: none; padding: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow: hidden; }
@@ -419,3 +425,6 @@ mobile-starlight-toc { display: none; } /* thay bằng .page-toc trong PageTitle
 /* ---------- Trang nhúng bài học HTML ---------- */
 .lesson-frame { width: 100%; height: 80vh; border: 1px solid var(--border-strong); border-radius: 12px; background: #fff; }
 .main-pane:has(.lesson-frame) .sl-container { max-width: 100%; }
+
+/* Công thức dài tự cuộn ngang thay vì làm tràn trang */
+.sl-markdown-content .katex { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; color: var(--text); }

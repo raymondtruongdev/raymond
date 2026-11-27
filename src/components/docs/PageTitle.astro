@@ -102,18 +102,15 @@ const minutes = body.includes('lesson-frame') ? 0 : Math.max(1, Math.round(body.
 	document.querySelectorAll('.sl-markdown-content :is(h2, h3)').forEach((heading) => {
 		const text = heading.firstChild;
 		if (!(text instanceof Text)) return;
-		const match = text.data.match(/^((?:\d+\.)+\d*|[A-Z]\.)(?=\s)/);
+		const match = text.data.match(/^(\d+ & \d+\.|(?:\d+\.)+\d*|[A-Z]\.)(?=\s)/);
 		if (!match) return;
 		const mark = document.createElement('span');
 		mark.className = /^[A-Z]/.test(match[0]) ? 'letter' : 'num';
-		mark.textContent = match[0];
-		if (mark.className === 'letter') {
-			// Ô chữ chỉ hiện "A", dấu chấm vẫn còn trong nội dung
-			const dot = document.createElement('span');
-			dot.className = 'dot-hidden';
-			dot.textContent = '.';
-			mark.replaceChildren(match[0].slice(0, -1), dot);
-		}
+		// Ô số / chữ chỉ hiện "1", "A"; dấu chấm vẫn còn trong nội dung
+		const dot = document.createElement('span');
+		dot.className = 'dot-hidden';
+		dot.textContent = '.';
+		mark.replaceChildren(match[0].slice(0, -1), dot);
 		text.data = text.data.slice(match[0].length);
 		heading.prepend(mark);
 	});

@@ -82,6 +82,7 @@ Màu, font và bố cục của Docs nằm trong `src/styles/raymond-theme.css`.
 | `Spec` + `SpecRow`     | Thẻ cấu hình; `danger` tô hàng cảnh báo                          |
 | `Badge`                | Nhãn `good`, `must`, `no`                                        |
 | `ConsolePath`          | Đường dẫn bấm trong console                                      |
+| `Tex`                  | Công thức toán: `<Tex tex="O(n^2)" />`                           |
 | `Aside` của Starlight  | Khung `note`, `tip`, `caution` (trong `.md` viết `:::note ... :::`) |
 
 Ô tìm kiếm chỉ tìm được tiêu đề của bài HTML, không tìm nội dung bên trong.

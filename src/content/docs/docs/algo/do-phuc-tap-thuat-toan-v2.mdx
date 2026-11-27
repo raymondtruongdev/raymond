@@ -1,0 +1,147 @@
+---
+title: "Detailed Guide to 11 Complexity Patterns (bản mới)"
+description: "Hướng dẫn chi tiết về 11 Mẫu Độ Phức Tạp thuật toán"
+sidebar:
+  order: 1.5
+---
+
+import Tex from '../../../../components/docs/Tex.astro';
+
+Hướng dẫn chi tiết về 11 Mẫu Độ Phức Tạp thuật toán
+
+| Mẫu | Dạng | Độ phức tạp |
+| :-- | :-- | :-- |
+| 1 | Vòng lặp đơn | <Tex tex="O(n)" /> |
+| 2 | Vòng lặp lồng | <Tex tex="O(n^2)" /> |
+| 3 | Tam giác | <Tex tex="O(n^2)" /> |
+| 4 & 5 | Tăng trưởng Logarit | <Tex tex="O(\log n)" /> |
+| 6 | Tỉ lệ hằng số | <Tex tex="O(n)" /> |
+| 7 | Vòng lặp nối tiếp | <Tex tex="O(n)" /> |
+| 8 | While chia đôi | <Tex tex="O(\log n)" /> |
+| 9 | Đệ quy tuyến tính | <Tex tex="O(n)" /> |
+| 10 | Chia để trị | <Tex tex="O(n \log n)" /> |
+| 11 | Tỉ lệ vàng | <Tex tex="O(\varphi^n)" /> |
+
+## Tổng quan: Cách tính độ phức tạp
+
+Độ phức tạp thuật toán là một khái niệm quan trọng trong khoa học máy tính, giúp chúng ta đánh giá hiệu suất của các thuật toán dựa trên số lượng phép tính hoặc bộ nhớ cần thiết khi kích thước đầu vào tăng lên.
+
+Độ phức tạp thuật toán (Big O notation) dùng để đo lường mức độ tăng trưởng thời gian hoặc không gian khi đầu vào <Tex tex="n" /> tiến tới vô hạn. Các quy tắc tính toán bao gồm:
+
+- **Quy tắc bỏ hằng số:** <Tex tex="O(2n) = O(n)" />, <Tex tex="O(n + 100) = O(n)" />.
+- **Quy tắc cộng (tuần tự):** Nếu hai vòng lặp nối tiếp, ta lấy tổng: <Tex tex="O(n) + O(n) = O(n)" />.
+- **Quy tắc nhân (lồng nhau):** Nếu vòng lặp lồng nhau, ta nhân: <Tex tex="O(n) \times O(n) = O(n^2)" />.
+- **Quy tắc bỏ số hạng thấp:** Trong tổng, chỉ giữ lại hạng tử có tốc độ tăng nhanh nhất: <Tex tex="O(n^2 + n) = O(n^2)" />.
+
+## 1. O(n) - Vòng lặp đơn
+
+Số phép tính tỉ lệ thuận với số phần tử.
+
+```c
+for (int i = 0; i < n; i++) { 
+    // Các lệnh bên trong tốn O(1)
+}
+```
+
+## 2. O(n²) - Vòng lặp lồng
+
+Với mỗi i, j chạy n lần: <Tex tex="n \times n = n^2" />.
+
+```c
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < n; j++) { }
+```
+
+## 3. O(n²) - Tam giác
+
+Số phép tính: <Tex tex="\sum_{i=1}^{n} i = \frac{n(n+1)}{2} \approx \frac{1}{2}n^2 \to O(n^2)" />.
+
+```c
+for (int i = 0; i < n; i++)
+    for (int j = 0; j < i; j++) { }
+```
+
+## 4 & 5. O(log n) - Tăng trưởng Logarit
+
+Biến i thay đổi theo cấp số nhân: <Tex tex="i = 2^k \implies k = \log_2 n" />.
+
+```c
+for (int i = 1; i < n; i *= 2) { } // i: 1, 2, 4, 8...
+```
+
+Chiều ngược lại, biến i chia đôi mỗi vòng:
+
+```c
+for (int i = n; i > 1; i /= 2) { } // n = 16 -> i: 16, 8, 4, 2
+```
+
+## 6. O(n) - Tỉ lệ hằng số
+
+Thực hiện <Tex tex="n/2" /> bước. Trong Big O, bỏ qua hằng số: <Tex tex="O(n/2) = O(n)" />.
+
+```c
+for (int i = 0; i < n / 2; i++) { }
+```
+
+## 7. O(n) - Vòng lặp nối tiếp
+
+Tổng số bước là <Tex tex="n + n = 2n" />. Bỏ qua hằng số: <Tex tex="O(n)" />.
+
+```c
+for (int i = 0; i < n; i++) { }
+for (int i = 0; i < n; i++) { }
+```
+
+## 8. O(log n) - While chia đôi
+
+Giá trị n giảm một nửa mỗi vòng. Số vòng lặp là <Tex tex="\log_2 n" />.
+
+```c
+while (n > 0) { n /= 2; }
+```
+
+## 9. O(n) - Đệ quy tuyến tính
+
+Phương trình đệ quy: <Tex tex="T(n) = T(n-1) + C \to O(n)" />.
+
+```c
+int sum(int a[], int n) {
+    if (n == 0) return 0;               // O(1)
+    return a[n - 1] + sum(a, n - 1);    // T(n - 1) + C
+}
+```
+
+## 10. O(n log n) - Chia để trị
+
+Áp dụng Master Theorem cho bài toán: <Tex tex="T(n) = 2T(n/2) + n" />.
+
+Ví dụ điển hình là Merge Sort:
+
+```c
+// Sắp xếp a[l..r), tmp là mảng phụ cùng kích thước với a
+void mergeSort(int a[], int tmp[], int l, int r) {
+    if (r - l < 2) return;
+    int m = l + (r - l) / 2;
+
+    mergeSort(a, tmp, l, m);    // T(n/2)
+    mergeSort(a, tmp, m, r);    // T(n/2)
+
+    // Trộn hai nửa đã sắp xếp: O(n)
+    int i = l, j = m;
+    for (int k = l; k < r; k++)
+        tmp[k] = (j >= r || (i < m && a[i] <= a[j])) ? a[i++] : a[j++];
+    for (int k = l; k < r; k++)
+        a[k] = tmp[k];
+}
+```
+
+## 11. O(φⁿ) - Tỉ lệ vàng
+
+Đệ quy Fibonacci không khử đệ quy tốn <Tex tex="O(1.618^n)" />.
+
+```c
+int f(int n) { 
+    if (n <= 1) return n;
+    return f(n - 1) + f(n - 2); 
+}
+```

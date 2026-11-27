@@ -1,0 +1,13 @@
+---
+// Công thức toán, dựng sẵn bằng KaTeX lúc build
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+
+interface Props {
+	tex: string;
+}
+
+const html = katex.renderToString(Astro.props.tex, { throwOnError: true });
+---
+
+<span set:html={html} />
