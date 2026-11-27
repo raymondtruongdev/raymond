@@ -82,7 +82,12 @@ body::after {
 }
 :root[data-theme='light'] .brand-mark { color: #fff; }
 .brand small { font: 500 11px/1.5 'JetBrains Mono', monospace; color: var(--muted); border: 1px solid var(--border); padding: 0 6px; border-radius: 5px; letter-spacing: 0; }
-@media (min-width: 900px) { .brand { width: 240px; } }
+/* Máy tính: logo to gấp đôi như Blog, header cao thêm cho vừa. Màn hình hẹp giữ cỡ nhỏ vì không đủ chỗ. */
+@media (min-width: 900px) {
+	:root { --sl-nav-height: 4.75rem; }
+	.brand { min-width: 240px; gap: 16px; font-size: 32px; }
+	.brand-mark { width: 56px; height: 56px; border-radius: 16px; font-size: 28px; }
+}
 .topnav { display: flex; gap: 4px; }
 .topnav a { position: relative; color: var(--muted); font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 7px; line-height: 1.4; text-decoration: none; }
 .topnav a:hover { color: var(--text); background: var(--surface-2); }
@@ -119,6 +124,7 @@ body::after {
 	.header .seg button { padding: 0 6px; }
 }
 @media (max-width: 899px) { .header .topnav { display: none; } }
+@media (min-width: 900px) { .topnav a[aria-current='page']::after { bottom: -22px; } }
 
 /* ---------- Sidebar ---------- */
 .sidebar-pane { border-inline-end: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }

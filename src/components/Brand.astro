@@ -1,0 +1,57 @@
+---
+// Logo "R Raymond" của Blog, giống `.brand` ở trang chủ (home.css): cỡ gấp đôi từ 900px trở lên.
+// Màu ghi trực tiếp vì Blog không nạp tokens.css (trùng tên biến với global.css).
+import '@fontsource/be-vietnam-pro/700.css';
+import '@fontsource/be-vietnam-pro/800.css';
+import { url } from '../lib/url';
+---
+
+<a class="brand" href={url()} aria-label="Raymond — trang chủ">
+	<span class="brand-mark" aria-hidden="true">R</span>
+	Raymond
+</a>
+
+<style>
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-shrink: 0;
+		color: #14161c;
+		font: 700 16px/1.6 'Be Vietnam Pro', sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.brand-mark {
+		width: 28px;
+		height: 28px;
+		border-radius: 8px;
+		display: grid;
+		place-items: center;
+		background: linear-gradient(145deg, #059669, #0d9488);
+		color: #fff;
+		font-size: 14px;
+		font-weight: 800;
+		box-shadow:
+			0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+			0 4px 12px -4px rgba(16, 185, 129, 0.55);
+	}
+	:global(.dark) .brand {
+		color: #e6e8ee;
+	}
+	:global(.dark) .brand-mark {
+		background: linear-gradient(145deg, #34d399, #0d9488);
+		color: #052e22;
+	}
+	@media (min-width: 900px) {
+		.brand {
+			gap: 16px;
+			font-size: 32px;
+		}
+		.brand-mark {
+			width: 56px;
+			height: 56px;
+			border-radius: 16px;
+			font-size: 28px;
+		}
+	}
+</style>
