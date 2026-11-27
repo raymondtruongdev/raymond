@@ -18,7 +18,8 @@
 	--tip-bg: rgba(56,189,248,.06); --tip-border: rgba(56,189,248,.2); --tip-rail: #38bdf8; --tip-title: #7dd3fc; --tip-text: #cfe7f5; --tip-ico: #04212f;
 	--note-bg: rgba(255,255,255,.03);
 	--no-text: #fca5a5; --no-bg: rgba(248,113,113,.08); --no-border: rgba(248,113,113,.25);
-	--code-bg: #0a0c11; --code-head: #10131a; --code-border: rgba(255,255,255,.08);
+	/* Khung code sáng hơn nền trang để nổi lên (khác handoff: #0a0c11 gần trùng nền) */
+	--code-bg: #141822; --code-head: #1a1f2a; --code-border: rgba(255,255,255,.12);
 }
 
 /* ---------- Token: sáng ---------- */

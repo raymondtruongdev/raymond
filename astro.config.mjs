@@ -55,7 +55,7 @@ export default defineConfig({
 					codeFontFamily: "'JetBrains Mono', monospace",
 					codeFontSize: '13.75px',
 					codeLineHeight: '1.85',
-					lineNumbers: { foreground: '#4b5266' },
+					lineNumbers: { foreground: '#6b7385' },
 					frames: {
 						editorTabBarBackground: 'var(--code-head)',
 						editorActiveTabBackground: 'var(--code-head)',
