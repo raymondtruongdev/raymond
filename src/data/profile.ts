@@ -7,9 +7,9 @@ export const cvUrl = 'https://drive.google.com/file/d/1dxLly0TYVkqtq67Qh_lq0EdsL
 
 export const stats = [
 	{ value: '16', plus: true, unit: 'năm', label: 'kinh nghiệm' },
-	{ value: '8', unit: 'năm', label: 'AOSP & Embedded systems' },
+	{ value: '4', unit: 'năm', label: 'AOSP & Embedded systems' },
 	{ value: '5', unit: 'năm', label: 'AI wearable @ Fossil' },
-	{ value: '6', unit: 'năm', label: 'Teaching @ HCMUT' },
+	{ value: '7', unit: 'năm', label: 'Teaching @ HCMUT' },
 	{ value: 'Thạc sĩ', label: 'Cơ điện tử' },
 ];
 
