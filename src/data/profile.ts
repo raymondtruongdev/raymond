@@ -6,10 +6,11 @@ export const location = 'TP. Hồ Chí Minh';
 export const cvFile = 'CV_TQT_202609_EN.pdf';
 
 export const stats = [
-	{ value: '15', plus: true, unit: 'năm', label: 'kinh nghiệm' },
+	{ value: '16', plus: true, unit: 'năm', label: 'kinh nghiệm' },
+	{ value: '8', unit: 'năm', label: 'AOSP & Embedded systems' },
 	{ value: '5', unit: 'năm', label: 'AI wearable @ Fossil' },
-	{ value: '6', unit: 'năm', label: 'giảng dạy @ HCMUT' },
-	{ value: 'Thạc sĩ', label: 'Cơ điện tử (Xuất sắc)' },
+	{ value: '6', unit: 'năm', label: 'Teaching @ HCMUT' },
+	{ value: 'Thạc sĩ', label: 'Cơ điện tử' },
 ];
 
 export const expertise = [
