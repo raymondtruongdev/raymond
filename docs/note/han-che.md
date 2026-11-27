@@ -12,7 +12,9 @@ Ghi ngày 27/11/2026.
 | Bài HTML tải thư viện từ CDN (Tailwind, highlight.js...) | CDN lỗi hoặc mất mạng thì bài hiển thị sai | Đưa thư viện vào `public/` |
 | Đường dẫn trong bài nhúng ghi cứng `/raymond/` | Đổi tên repo thì các bài này bị hỏng | Sửa đường dẫn trong `src/content/docs/docs/` |
 | Trang mục lục viết tay | Thêm bài mới phải tự thêm link | Sửa `src/content/docs/docs/index.md` |
-| Giao diện co giãn ghi đè CSS nội bộ của Starlight (`docs.css`, `PageTitle.astro`) | Nâng cấp Starlight có thể làm lệch bố cục | Xem lại Docs sau mỗi lần nâng cấp |
+| Giao diện co giãn ghi đè CSS nội bộ của Starlight (`raymond-theme.css`, các component trong `src/components/docs/`) | Nâng cấp Starlight có thể làm lệch bố cục | Xem lại Docs sau mỗi lần nâng cấp |
+| Icon nhóm trong sidebar gắn theo thứ tự (`nth-child`) | Thêm hoặc đổi thứ tự nhóm thì icon bị lệch | Sửa trong `raymond-theme.css` |
+| Hai bài `ssh-linux` và `cloudflare-tunnel` dùng `> [!NOTE]` | Hiện thành trích dẫn thường, không phải callout | Đổi sang `:::note` |
 | Bài Cloudflare Tunnel có hai mục "Bước 3" (từ bản gốc) | Dễ nhầm thứ tự | Đánh số lại |
 
 ## Phần còn lại của web

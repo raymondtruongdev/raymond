@@ -1,0 +1,27 @@
+---
+// Đường dẫn bấm trong một console, bước cuối được tô nổi
+import Icon from './Icon.astro';
+
+interface Props {
+	steps: string[];
+	label?: string;
+}
+
+const { steps, label = 'Truy cập' } = Astro.props;
+---
+
+<div class="path not-content">
+	<span class="lab">{label}</span>
+	{
+		steps.map((step, i) => (
+			<>
+				{i > 0 && (
+					<span class="arr">
+						<Icon name="chev" size={13} />
+					</span>
+				)}
+				<span class:list={['chip', { last: i === steps.length - 1 }]}>{step}</span>
+			</>
+		))
+	}
+</div>

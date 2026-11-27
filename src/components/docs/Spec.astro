@@ -1,0 +1,22 @@
+---
+// Thẻ cấu hình. Bên trong là các <SpecRow>.
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+	title: string;
+	icon?: IconName;
+	badge?: string;
+}
+
+const { title, icon = 'server', badge } = Astro.props;
+---
+
+<div class="spec not-content">
+	<div class="spec-head">
+		<b><Icon name={icon} size={14} />{title}</b>
+		{badge && <span class="ok">{badge}</span>}
+	</div>
+	<dl>
+		<slot />
+	</dl>
+</div>

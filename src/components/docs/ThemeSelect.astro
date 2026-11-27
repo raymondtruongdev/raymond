@@ -1,46 +1,67 @@
 ---
-// Thay menu chọn giao diện mặc định bằng một nút: bấm là đổi sáng / tối
+// Segmented control Sáng / Tối / Hệ thống. Dùng key `starlight-theme` của Starlight.
+import Icon from './Icon.astro';
+
+const options = [
+	{ value: 'light', label: 'Sáng', icon: 'sun' },
+	{ value: 'dark', label: 'Tối', icon: 'moon' },
+	{ value: 'auto', label: 'Hệ thống', icon: 'sys' },
+] as const;
 ---
 
-<button type="button" class="theme-toggle" aria-label="Chuyển chế độ sáng / tối">
-	<span class="to-light" aria-hidden="true">☀️</span>
-	<span class="to-dark" aria-hidden="true">🌙</span>
-</button>
+<raymond-theme-select class="seg" role="group" aria-label="Giao diện">
+	{
+		options.map((option) => (
+			<button type="button" data-set={option.value} aria-pressed="false" title={option.label} aria-label={option.label}>
+				<Icon name={option.icon} />
+				<span>{option.label}</span>
+			</button>
+		))
+	}
+</raymond-theme-select>
 
 <script>
-	// Nút xuất hiện hai lần: trên thanh trên và trong menu ☰
-	document.querySelectorAll('.theme-toggle').forEach((button) => {
-		button.addEventListener('click', () => {
-			const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-			document.documentElement.dataset.theme = next;
-			try {
-				localStorage.setItem('starlight-theme', next);
-				localStorage.setItem('theme', next); // dùng chung với trang chủ và Blog
-			} catch {}
-		});
-	});
-</script>
+	type Pref = 'light' | 'dark' | 'auto';
+	const system = matchMedia('(prefers-color-scheme: light)');
 
-<style>
-	button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 2.25rem;
-		height: 2.25rem;
-		border: 1px solid var(--sl-color-hairline);
-		border-radius: 50%;
-		background: transparent;
-		cursor: pointer;
-	}
-	button:hover {
-		background: var(--docs-surface);
-	}
-	.to-dark,
-	:global([data-theme='light']) .to-light {
-		display: none;
-	}
-	:global([data-theme='light']) .to-dark {
-		display: inline;
-	}
-</style>
+	const load = (): Pref => {
+		try {
+			const saved = localStorage.getItem('starlight-theme');
+			return saved === 'light' || saved === 'dark' ? saved : 'auto';
+		} catch {
+			return 'auto';
+		}
+	};
+
+	// Nút xuất hiện hai lần (thanh trên và menu ☰) nên cập nhật tất cả
+	const apply = (pref: Pref) => {
+		document.documentElement.dataset.theme = pref === 'auto' ? (system.matches ? 'light' : 'dark') : pref;
+		document
+			.querySelectorAll<HTMLButtonElement>('raymond-theme-select button')
+			.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.set === pref)));
+	};
+
+	let current = load();
+
+	customElements.define(
+		'raymond-theme-select',
+		class extends HTMLElement {
+			connectedCallback() {
+				apply(current);
+				this.addEventListener('click', (event) => {
+					const button = (event.target as Element).closest('button');
+					if (!button) return;
+					current = button.dataset.set as Pref;
+					apply(current);
+					try {
+						localStorage.setItem('starlight-theme', current === 'auto' ? '' : current);
+						// `theme` dùng chung với trang chủ và Blog
+						current === 'auto' ? localStorage.removeItem('theme') : localStorage.setItem('theme', current);
+					} catch {}
+				});
+			}
+		},
+	);
+
+	system.addEventListener('change', () => current === 'auto' && apply('auto'));
+</script>

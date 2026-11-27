@@ -4,6 +4,12 @@ sidebar:
   order: 1
 ---
 
+import { Aside } from '@astrojs/starlight/components';
+import Badge from '../../../../components/docs/Badge.astro';
+import ConsolePath from '../../../../components/docs/ConsolePath.astro';
+import Spec from '../../../../components/docs/Spec.astro';
+import SpecRow from '../../../../components/docs/SpecRow.astro';
+
 Tài liệu này tổng hợp hướng dẫn đầy đủ, chi tiết và súc tích để tạo máy ảo (Compute Engine) **hoàn toàn miễn phí 100% vĩnh viễn** trên Google Cloud Platform (GCP), tối ưu tốc độ cho người dùng tại Việt Nam, tránh các "bẫy" tính phí ngầm và hướng dẫn cài đặt cơ bản (SSH, Swap RAM, Docker).
 
 ---
@@ -15,46 +21,53 @@ Tài liệu này tổng hợp hướng dẫn đầy đủ, chi tiết và súc t
 | Thành phần              | Mức miễn phí (Always Free)                                                                                   | Giải thích & Lưu ý quan trọng                                                                                                                                                                                                                  |
 | :---------------------- | :----------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Loại máy ảo**         | **1 instance `e2-micro`** (2 vCPU, 1 GB RAM)                                                                 | Hạn mức tính theo**tổng số giờ**: ~720–744 giờ/tháng (đủ cho **duy nhất 1 máy** chạy 24/7). Nếu tạo 2 máy chạy song song, số giờ vượt mức sẽ bị tính phí.                                                                                      |
-| **Khu vực (Region)**    | Chỉ 3 vùng tại Mỹ:`<br>`• `us-west1` (Oregon)`<br>`• `us-central1` (Iowa)`<br>`• `us-east1` (South Carolina) | **Ở Việt Nam, nên chọn `us-west1` (Oregon)** vì nằm ở bờ Tây nước Mỹ, đi cáp quang biển thẳng qua Thái Bình Dương cho độ trễ (ping ~160ms–190ms) thấp nhất.                                                                                    |
-| **Ổ cứng (Boot Disk)**  | Tối đa**30 GB** loại **Standard Persistent Disk** (`pd-standard`)                                            | •**Tuyệt đối KHÔNG chọn** `Balanced persistent disk` (`pd-balanced`) hay `SSD` (`pd-ssd`) vì sẽ bị tính tiền theo GB hàng tháng.`<br>`• Mặc định GCP hay gợi ý _Balanced_, cần bấm **Change** để đổi sang _Standard_.                          |
-| **Băng thông (Egress)** | **1 GB/tháng** (chiều gửi ra Internet từ Bắc Mỹ)                                                             | • Dữ liệu tải lên máy ảo (Inbound/Ingress) là**miễn phí không giới hạn**.`<br>`• Dữ liệu gửi ra ngoài chỉ miễn phí 1 GB đầu tiên. Nếu dùng làm web/proxy nhiều lượt tải, phần vượt quá 1 GB sẽ tính phí khoảng $0.085 – $0.12/GB (~2.500đ/GB). |
+| **Khu vực (Region)**    | Chỉ 3 vùng tại Mỹ:<br />• `us-west1` (Oregon)<br />• `us-central1` (Iowa)<br />• `us-east1` (South Carolina) | **Ở Việt Nam, nên chọn `us-west1` (Oregon)** vì nằm ở bờ Tây nước Mỹ, đi cáp quang biển thẳng qua Thái Bình Dương cho độ trễ (ping ~160ms–190ms) thấp nhất.                                                                                    |
+| **Ổ cứng (Boot Disk)**  | Tối đa**30 GB** loại **Standard Persistent Disk** (`pd-standard`)                                            | •**Tuyệt đối KHÔNG chọn** `Balanced persistent disk` (`pd-balanced`) hay `SSD` (`pd-ssd`) vì sẽ bị tính tiền theo GB hàng tháng.<br />• Mặc định GCP hay gợi ý _Balanced_, cần bấm **Change** để đổi sang _Standard_.                          |
+| **Băng thông (Egress)** | **1 GB/tháng** (chiều gửi ra Internet từ Bắc Mỹ)                                                             | • Dữ liệu tải lên máy ảo (Inbound/Ingress) là**miễn phí không giới hạn**.<br />• Dữ liệu gửi ra ngoài chỉ miễn phí 1 GB đầu tiên. Nếu dùng làm web/proxy nhiều lượt tải, phần vượt quá 1 GB sẽ tính phí khoảng $0.085 – $0.12/GB (~2.500đ/GB). |
 | **Địa chỉ IP**          | **Ephemeral IP (IP động)**                                                                                   | Miễn phí khi máy ảo đang chạy.**Tuyệt đối không tạo Reserved Static IP** (IP tĩnh giữ chỗ khi máy tắt sẽ bị tính phí phạt giữ IP).                                                                                                             |
 
-> [!NOTE]
-> **Về con số "Monthly estimate: $6.11" khi tạo máy:**
-> Đây chỉ là bảng tính giá niêm yết gốc (List Price) chưa áp dụng khuyến mãi. Cuối tháng, hệ thống tự động áp mã **Free Tier Credit (-$6.11)** đưa hóa đơn thực tế về **$0.00**.
+<Aside type="note" title="Về con số &quot;Monthly estimate: $6.11&quot; khi tạo máy">
 
-> [!NOTE]
-> **Về khoản trừ ~1 USD khi thêm thẻ Visa/Mastercard:**
-> Đây là giao dịch giữ tiền xác minh thẻ (Authorization Hold/Pending). Ngân hàng sẽ **hoàn trả lại 100%** trong 3–30 ngày.
+Đây chỉ là bảng tính giá niêm yết gốc (List Price) chưa áp dụng khuyến mãi. Cuối tháng, hệ thống tự động áp mã **Free Tier Credit (-$6.11)** đưa hóa đơn thực tế về **$0.00**.
+
+</Aside>
+
+<Aside type="note" title="Về khoản trừ ~1 USD khi thêm thẻ Visa/Mastercard">
+
+Đây là giao dịch giữ tiền xác minh thẻ (Authorization Hold/Pending). Ngân hàng sẽ **hoàn trả lại 100%** trong 3–30 ngày.
+
+</Aside>
 
 ---
 
 ## 2. Các Bước Tạo Máy Ảo Chuẩn Free Tier (Chi Tiết Từng Mục)
 
-Truy cập **Google Cloud Console** > vào menu điều hướng chọn **Compute Engine** > **VM instances** > bấm **Create Instance**.
+<ConsolePath steps={['Google Cloud Console', 'Compute Engine', 'VM instances', 'Create Instance']} />
 
 Thiết lập các thông số chính xác theo bảng sau:
 
 ### A. Machine Configuration (Cấu hình máy)
 
-- **Name:** Đặt tên tùy ý (ví dụ: `vps-free`).
-- **Region:** Chọn **`us-west1 (Oregon)`** (tối ưu nhất cho VN).
-- **Zone:** Chọn bất kỳ (`us-west1-a`, `us-west1-b`, hoặc `us-west1-c`).
-- **Machine configuration:**
-  - **Series:** `E2`
-  - **Machine type:** **`e2-micro`** (2 vCPU, 1 GB RAM).
+<Spec title="Machine configuration">
+  <SpecRow label="Name"><span class="note">Đặt tên tùy ý (ví dụ: <span class="val">vps-free</span>).</span></SpecRow>
+  <SpecRow label="Region"><span class="val">us-west1 (Oregon)</span><Badge variant="good">Tối ưu nhất cho VN</Badge></SpecRow>
+  <SpecRow label="Zone"><span class="pills"><span class="val">us-west1-a</span><span class="val">us-west1-b</span><span class="val">us-west1-c</span></span><span class="note">Chọn bất kỳ.</span></SpecRow>
+  <SpecRow label="Series"><span class="val">E2</span></SpecRow>
+  <SpecRow label="Machine type"><span class="val">e2-micro</span><span class="note">2 vCPU, 1 GB RAM.</span></SpecRow>
+</Spec>
 
 ### B. Boot Disk (Ổ đĩa hệ điều hành) — _Bước quan trọng nhất tránh mất tiền_
 
 Bấm nút **Change**:
 
-- **Operating system:** Chọn **Ubuntu**.
-  - **Giải thích:** Chọn bản Ubuntu tiêu chuẩn (miễn phí bản quyền). Tuyệt đối **không chọn** _Ubuntu Pro_ (tính phí bản quyền theo giờ) hoặc _Ubuntu Accelerator_ (chỉ cho máy có GPU).
-- **Version:** Chọn **`Ubuntu 24.04 LTS`** hoặc **`Ubuntu 22.04 LTS`** (hoặc bản _Minimal_ để hệ thống nhẹ hơn).
-- **Boot disk type:** Chuyển sang **Standard persistent disk** _(Bắt buộc, không để Balanced)_.
-- **Size:** Nhập **`30 GB`** (hoặc nhỏ hơn).
-- Bấm **Select** để lưu.
+<Spec title="Boot disk" icon="shield">
+  <SpecRow label="Operating system"><span class="val">Ubuntu</span><span class="note"><strong>Giải thích:</strong> Chọn bản Ubuntu tiêu chuẩn (miễn phí bản quyền). Tuyệt đối <strong>không chọn</strong> <em>Ubuntu Pro</em> (tính phí bản quyền theo giờ) hoặc <em>Ubuntu Accelerator</em> (chỉ cho máy có GPU).</span></SpecRow>
+  <SpecRow label="Version"><span class="pills"><span class="val">Ubuntu 24.04 LTS</span><span class="val">Ubuntu 22.04 LTS</span></span><span class="note">Hoặc bản <em>Minimal</em> để hệ thống nhẹ hơn.</span></SpecRow>
+  <SpecRow label="Boot disk type" hint="Bắt buộc" danger><span class="val">Standard persistent disk</span><Badge variant="must">Không để Balanced</Badge></SpecRow>
+  <SpecRow label="Size"><span class="val">30 GB</span><span class="note">Hoặc nhỏ hơn.</span></SpecRow>
+</Spec>
+
+Bấm **Select** để lưu.
 
 ### C. Backups (Sao lưu)
 
@@ -120,7 +133,7 @@ Trước khi an tâm sử dụng, hãy vào **GCP Console > Billing > Reports** 
 
 - [ ] Chỉ duy nhất **1 máy ảo `e2-micro`** đang chạy.
 - [ ] Khu vực máy ảo thuộc: `us-west1`, `us-central1` hoặc `us-east1`.
-- [ ] Loại ổ đĩa là **Standard Persistent Disk**, dung lượng $\le$ **30 GB**.
+- [ ] Loại ổ đĩa là **Standard Persistent Disk**, dung lượng ≤ **30 GB**.
 - [ ] Mục **Snapshots / Backups** không có bản sao lưu tự động nào đang chạy.
 - [ ] Không tạo **External Static IP** bị bỏ trống (chỉ dùng Ephemeral IP đi kèm máy đang chạy).
 - [ ] Đặt **Budget & Alert** ở mức **$1.00** trong trang Billing để nhận email cảnh báo tức thì nếu có bất kỳ chi phí ngoài ý muốn nào phát sinh.

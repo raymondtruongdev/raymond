@@ -73,7 +73,16 @@ tableOfContents: false
 <iframe class="lesson-frame" src="/raymond/lessons/page/<chu-de>/ten-bai.html" title="Tiêu đề"></iframe>
 ```
 
-Màu, font và bố cục co giãn của Docs nằm trong `src/styles/docs.css`.
+Màu, font và bố cục của Docs nằm trong `src/styles/raymond-theme.css`.
+
+**Component cho bài `.mdx`** (trong `src/components/docs/`), xem mẫu ở `vps/vps-free-tier.mdx`:
+
+| Component              | Dùng để                                                          |
+| :--------------------- | :--------------------------------------------------------------- |
+| `Spec` + `SpecRow`     | Thẻ cấu hình; `danger` tô hàng cảnh báo                          |
+| `Badge`                | Nhãn `good`, `must`, `no`                                        |
+| `ConsolePath`          | Đường dẫn bấm trong console                                      |
+| `Aside` của Starlight  | Khung `note`, `tip`, `caution` (trong `.md` viết `:::note ... :::`) |
 
 Ô tìm kiếm chỉ tìm được tiêu đề của bài HTML, không tìm nội dung bên trong.
 

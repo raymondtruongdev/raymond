@@ -3,23 +3,6 @@ import Default from '@astrojs/starlight/components/SocialIcons.astro';
 import { url } from '../../lib/url';
 ---
 
-<a href={url()}>Trang chủ</a>
-<a href={url('blog/')}>Blog</a>
+<a class="menu-link" href={url()}>Trang chủ</a>
+<a class="menu-link" href={url('blog/')}>Blog</a>
 <Default><slot /></Default>
-
-<style>
-	a {
-		color: var(--sl-color-text);
-		text-decoration: none;
-		font-weight: 500;
-	}
-	a:hover {
-		color: var(--sl-color-text-accent);
-	}
-	/* Màn hình rộng đã có link ở bên trái; chỉ giữ trong menu ☰ */
-	@media (min-width: 997px) {
-		a {
-			display: none;
-		}
-	}
-</style>

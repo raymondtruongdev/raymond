@@ -23,7 +23,38 @@ export default defineConfig({
 			],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/raymondtruongdev' }],
 			lastUpdated: true,
-			customCss: ['./src/styles/docs.css'],
+			customCss: [
+				'@fontsource/be-vietnam-pro/500.css',
+				'@fontsource/be-vietnam-pro/600.css',
+				'@fontsource/be-vietnam-pro/700.css',
+				'@fontsource/be-vietnam-pro/800.css',
+				'@fontsource/inter/400.css',
+				'@fontsource/inter/500.css',
+				'@fontsource/inter/600.css',
+				'@fontsource/jetbrains-mono/400.css',
+				'@fontsource/jetbrains-mono/500.css',
+				'./src/styles/raymond-theme.css',
+			],
+			// Khung code luôn tối ở cả hai giao diện
+			expressiveCode: {
+				themes: ['github-dark-default'],
+				useStarlightUiThemeColors: false,
+				styleOverrides: {
+					borderRadius: '12px',
+					borderColor: 'var(--code-border)',
+					codeBackground: 'var(--code-bg)',
+					codeFontFamily: "'JetBrains Mono', monospace",
+					codeFontSize: '13.75px',
+					codeLineHeight: '1.85',
+					frames: {
+						editorTabBarBackground: 'var(--code-head)',
+						editorActiveTabBackground: 'var(--code-head)',
+						terminalBackground: 'var(--code-bg)',
+						terminalTitlebarBackground: 'var(--code-head)',
+						terminalTitlebarBorderBottomColor: 'var(--code-border)',
+					},
+				},
+			},
 			components: {
 				PageTitle: './src/components/docs/PageTitle.astro',
 				SiteTitle: './src/components/docs/SiteTitle.astro',
@@ -32,22 +63,20 @@ export default defineConfig({
 			},
 			head: [
 				{
-					// Dùng chung lựa chọn sáng / tối với phần còn lại của web
+					// Lựa chọn ở trang chủ / Blog (key `theme`) áp dụng cho Docs. Chưa chọn thì theo hệ thống.
 					tag: 'script',
 					content: `try {
 	const theme = localStorage.getItem('theme');
 	if (theme) localStorage.setItem('starlight-theme', theme);
-	// Chưa chọn gì thì Docs dùng nền tối
-	else if (localStorage.getItem('starlight-theme') === null) localStorage.setItem('starlight-theme', 'dark');
 } catch {}`,
 				},
 				{
-					// Dưới 996px sidebar thành menu ☰. Starlight chỉ làm việc này dưới 800px.
+					// Dưới 900px sidebar thành menu ☰. Starlight chỉ làm việc này dưới 800px.
 					tag: 'script',
 					content: `addEventListener('DOMContentLoaded', () => {
 	const pane = document.getElementById('starlight__sidebar');
 	if (!pane) return;
-	const narrow = matchMedia('(max-width: 996px)');
+	const narrow = matchMedia('(max-width: 899px)');
 	const update = () => (pane.popover = narrow.matches ? 'auto' : null);
 	update();
 	narrow.addEventListener('change', update);

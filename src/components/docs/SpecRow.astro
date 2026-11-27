@@ -1,0 +1,15 @@
+---
+interface Props {
+	label: string;
+	hint?: string;
+	danger?: boolean;
+}
+
+const { label, hint, danger } = Astro.props;
+---
+
+<dt class:list={{ 'danger-row': danger }}>
+	{label}
+	{hint && <small>{hint}</small>}
+</dt>
+<dd class:list={{ 'danger-row': danger }}><slot /></dd>
