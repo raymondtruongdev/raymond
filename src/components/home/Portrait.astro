@@ -1,10 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import avatar from '../../assets/avatar.png';
-import Icon from './Icon.astro';
 ---
 
-<figure class="portrait">
+<div class="portrait">
 	<div class="frame">
 		<Image
 			src={avatar}
@@ -15,8 +14,4 @@ import Icon from './Icon.astro';
 			fetchpriority="high"
 		/>
 	</div>
-	<figcaption class="float-card">
-		<span class="fc-ico" aria-hidden="true"><Icon name="watch" size={20} /></span>
-		<span><b>5 năm</b><span>AI cho thiết bị đeo @ Fossil</span></span>
-	</figcaption>
-</figure>
+</div>
