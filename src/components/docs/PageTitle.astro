@@ -1,0 +1,144 @@
+---
+// Thay tiêu đề mặc định: breadcrumb, mục lục thu gọn (màn hình hẹp), rồi tới tiêu đề
+import { url } from '../../lib/url';
+
+const { sidebar, toc, entry } = Astro.locals.starlightRoute;
+
+type Entry = (typeof sidebar)[number];
+const findTrail = (entries: Entry[]): string[] | undefined => {
+	for (const item of entries) {
+		if (item.type === 'link') {
+			if (item.isCurrent) return [item.label];
+		} else {
+			const rest = findTrail(item.entries);
+			if (rest) return [item.label, ...rest];
+		}
+	}
+};
+const trail = findTrail(sidebar) ?? [entry.data.title];
+
+// Bỏ mục "Tổng quan" do Starlight tự thêm
+const headings = (toc?.items ?? []).flatMap((item) => (item.slug === '_top' ? item.children : [item]));
+---
+
+<nav class="crumbs" aria-label="Breadcrumb">
+	<a href={url()} aria-label="Trang chủ">
+		<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+			<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+		</svg>
+	</a>
+	{
+		trail.map((label, i) => (
+			<>
+				<span aria-hidden="true">›</span>
+				<span class:list={{ current: i === trail.length - 1 }}>{label}</span>
+			</>
+		))
+	}
+</nav>
+
+{
+	headings.length > 0 && (
+		<details class="page-toc">
+			<summary>{Astro.locals.t('tableOfContents.onThisPage')}</summary>
+			<ul>
+				{headings.map((item) => (
+					<li>
+						<a href={`#${item.slug}`}>{item.text}</a>
+						{item.children.length > 0 && (
+							<ul>
+								{item.children.map((child) => (
+									<li>
+										<a href={`#${child.slug}`}>{child.text}</a>
+									</li>
+								))}
+							</ul>
+						)}
+					</li>
+				))}
+			</ul>
+		</details>
+	)
+}
+
+<h1 id="_top">{entry.data.title}</h1>
+
+<script>
+	// Đóng mục lục sau khi chọn một mục
+	const toc = document.querySelector<HTMLDetailsElement>('.page-toc');
+	toc?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => (toc.open = false)));
+</script>
+
+<style>
+	.crumbs {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: var(--sl-text-sm);
+	}
+	.crumbs a {
+		display: flex;
+		color: var(--sl-color-text);
+	}
+	.crumbs .current {
+		padding: 0.25rem 0.85rem;
+		border-radius: 999px;
+		background: var(--docs-surface);
+		color: var(--sl-color-text-accent);
+	}
+	.page-toc {
+		margin-top: 1rem;
+		border-radius: 0.4rem;
+		background: var(--docs-surface);
+		font-size: var(--sl-text-sm);
+	}
+	summary {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		list-style: none;
+	}
+	summary::-webkit-details-marker {
+		display: none;
+	}
+	summary::after {
+		content: '⌄';
+	}
+	[open] summary {
+		border-bottom: 1px solid var(--docs-border);
+	}
+	[open] summary::after {
+		content: '⌃';
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.page-toc > ul {
+		padding: 0.5rem 1rem;
+	}
+	ul ul {
+		padding-inline-start: 1.25rem;
+	}
+	.page-toc a {
+		display: block;
+		padding-block: 0.15rem;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	h1 {
+		margin-top: 1rem;
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-h1);
+		font-weight: 700;
+		line-height: var(--sl-line-height-headings);
+	}
+	@media (min-width: 72rem) {
+		.page-toc {
+			display: none;
+		}
+	}
+</style>

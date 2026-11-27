@@ -73,12 +73,14 @@ tableOfContents: false
 <iframe class="lesson-frame" src="/raymond/lessons/page/<chu-de>/ten-bai.html" title="Tiêu đề"></iframe>
 ```
 
+Màu, font và bố cục co giãn của Docs nằm trong `src/styles/docs.css`.
+
 Ô tìm kiếm chỉ tìm được tiêu đề của bài HTML, không tìm nội dung bên trong.
 
 **Chủ đề mới:** tạo thư mục mới, rồi thêm vào `sidebar` trong `astro.config.mjs`:
 
 ```js
-{ label: 'Tên nhóm', items: [{ autogenerate: { directory: 'docs/ten-thu-muc' } }] },
+{ label: 'Tên nhóm', collapsed: true, items: [{ autogenerate: { directory: 'docs/ten-thu-muc' } }] },
 ```
 
 Nhớ thêm link bài mới vào trang mục lục `src/content/docs/docs/index.md`.

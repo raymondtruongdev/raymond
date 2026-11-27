@@ -10,7 +10,7 @@ Sau hướng dẫn chi tiết cách khởi tạo, cấu hình, tối ưu và g�
 
 Mở terminal SSH vào máy ảo và chạy lần lượt các lệnh sau:
 
-# 1. Kiểm tra Swap hiện có
+## 1. Kiểm tra Swap hiện có
 
 ```bash
 sudo swapon --show
@@ -19,7 +19,7 @@ free -h
 
 _Nếu không có thông số Swap nào xuất hiện hoặc cột `Swap: total` hiển thị `0B`, nghĩa là VPS chưa bật Swap._
 
-# 2. Kiểm tra dung lượng ổ đĩa trống
+## 2. Kiểm tra dung lượng ổ đĩa trống
 
 ```bash
 df -h /
@@ -27,9 +27,9 @@ df -h /
 
 _Đảm bảo dung lượng trống tại phân vùng `/` lớn hơn kích thước Swap dự định tạo ít nhất 2–4 GB._
 
-# 3. Tạo SWAP
+## 3. Tạo SWAP
 
-## 3.1. Script tạo 2GB Swap
+### 3.1. Script tạo 2GB Swap
 
 ```bash
 # 1. Tắt swapfile cũ nếu đang chạy
@@ -58,7 +58,7 @@ free -h
 
 _(Nếu thấy dòng `Swap:` hiển thị dung lượng khoảng `2.0Gi` là đã thành công)._
 
-## 3.2. Script tạo 4GB Swap
+### 3.2. Script tạo 4GB Swap
 
 ```bash
 # 1. Tắt swapfile cũ nếu đang chạy
@@ -87,7 +87,7 @@ free -h
 
 _(Nếu thấy dòng `Swap:` hiển thị dung lượng khoảng `2.0Gi` là đã thành công)._
 
-# 4. Hướng Dẫn Gỡ Bỏ Hoàn Toàn Swap (Uninstall / Reset)
+## 4. Hướng Dẫn Gỡ Bỏ Hoàn Toàn Swap (Uninstall / Reset)
 
 Nếu bạn muốn xóa bỏ swap hoặc làm lại từ đầu:
 

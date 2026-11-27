@@ -1,18 +1,250 @@
-/* Màu và font của Docs, khớp với phần còn lại của web */
+/* Giao diện Docs theo kiểu Docusaurus. CSS ở đây không nằm trong @layer nên ghi đè được Starlight. */
+
+/* ---------- Màu và font ---------- */
 :root {
-	--sl-font: 'Raleway';
-	--sl-color-accent-low: #172554;
-	--sl-color-accent: #3b82f6;
-	--sl-color-accent-high: #bfdbfe;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eeeeef;
+	--sl-color-gray-2: #e3e3e3;
+	--sl-color-gray-3: #a4a6a8;
+	--sl-color-gray-5: #444548;
+	--sl-color-gray-6: #272729;
+	--sl-color-black: #1b1b1d;
+
+	--sl-color-accent-low: #12331f;
+	--sl-color-accent: #0f9d58;
+	--sl-color-accent-high: #a5e0c0;
+
+	--sl-color-text: #e3e3e3;
+	--sl-color-text-accent: #0f9d58;
+	--sl-color-bg-nav: #141414;
+	--sl-color-bg-sidebar: #1b1b1d;
+	--sl-color-hairline: #3a3b3d;
+	--sl-color-hairline-shade: #2c2c2e;
+
+	--sl-content-width: 55rem;
+	--sl-line-height: 1.65;
+	--sl-mobile-toc-height: 0rem;
+
+	--docs-surface: #272729;
+	--docs-border: #606770;
 }
 
 :root[data-theme='light'] {
-	--sl-color-accent-low: #dbeafe;
-	--sl-color-accent: #1d4ed8;
-	--sl-color-accent-high: #172554;
+	--sl-color-white: #1c1e21;
+	--sl-color-gray-1: #2b2d31;
+	--sl-color-gray-2: #444950;
+	--sl-color-gray-3: #606770;
+	--sl-color-gray-5: #ccd0d5;
+	--sl-color-gray-6: #ebedf0;
+	--sl-color-black: #ffffff;
+
+	--sl-color-accent-low: #d5ecdd;
+	--sl-color-accent: #0b8043;
+	--sl-color-accent-high: #075c30;
+
+	--sl-color-text: #1c1e21;
+	--sl-color-text-accent: #0b8043;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #ffffff;
+	--sl-color-hairline: #dadde1;
+	--sl-color-hairline-shade: #dadde1;
+
+	--docs-surface: #f2f3f5;
+	--docs-border: #dadde1;
 }
 
-/* Trang nhúng bài học HTML */
+/* Font và cỡ chữ theo Docusaurus */
+:root {
+	--sl-font-system: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif;
+	--sl-text-h1: 2.25rem;
+	--sl-text-h2: 1.75rem;
+	--sl-text-h3: 1.4rem;
+	--sl-text-h4: 1.2rem;
+}
+
+@media (min-width: 50rem) {
+	:root {
+		--sl-nav-height: 3.75rem;
+		--sl-text-h1: 3rem;
+		--sl-text-h2: 2rem;
+		--sl-text-h3: 1.5rem;
+		--sl-text-h4: 1.25rem;
+	}
+}
+
+html {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+/* Link trong bài chỉ gạch chân khi rê chuột */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	text-decoration: none;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4,
+.sl-markdown-content :is(h1, h2, h3, h4) {
+	font-weight: 700;
+}
+
+.site-title {
+	color: var(--sl-color-white);
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar-content a,
+.sidebar-content summary,
+.sidebar-content summary .large {
+	font-size: var(--sl-text-base);
+	font-weight: 500;
+	color: var(--sl-color-text);
+}
+
+.sidebar-content a {
+	border-radius: 0.4rem;
+	padding-block: 0.375rem;
+	line-height: 1.25;
+}
+
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+	background: var(--docs-surface);
+	color: var(--sl-color-text-accent);
+}
+
+.sidebar-content {
+	padding-inline: 0.5rem;
+}
+
+.sidebar-content a,
+.sidebar-content summary {
+	padding: 0.375rem 0.75rem;
+}
+
+.sidebar-content summary .large {
+	line-height: 1.25;
+}
+
+/* ---------- Nội dung ---------- */
+.content-panel + .content-panel {
+	border-top: 0;
+	padding-top: 0;
+}
+
+/* Mục lục bên phải: không tiêu đề, không mục "Tổng quan" */
+.right-sidebar-panel h2 {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+}
+
+.right-sidebar-panel a[href='#_top'] {
+	display: none;
+}
+
+/* Số đo lấy từ trang mẫu: chữ 12.8px, dòng 1.65, mỗi mục cách 8px, cấp con thụt 16px */
+.right-sidebar-panel ul {
+	padding: 0;
+}
+
+.right-sidebar-panel ul ul {
+	padding-inline-start: 1rem;
+}
+
+.right-sidebar-panel li {
+	margin-block: 0.5rem;
+}
+
+.right-sidebar-panel a {
+	padding: 0;
+	color: var(--sl-color-white);
+	font-size: 0.8rem;
+	font-weight: 400;
+	line-height: 1.65;
+}
+
+.right-sidebar-panel a[aria-current='true'] {
+	color: var(--sl-color-text-accent);
+}
+
+/* Mục lục cho màn hình hẹp đã nằm trong PageTitle.astro */
+mobile-starlight-toc {
+	display: none;
+}
+
+/* Bảng có viền, rộng hết cột */
+.sl-markdown-content table:not(:where(.not-content *)) {
+	border-collapse: collapse;
+}
+
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+	border: 1px solid var(--docs-border);
+	padding: 0.75rem 1rem;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+	background: var(--docs-surface);
+}
+
+@media (min-width: 50rem) {
+	.sl-markdown-content table:not(:where(.not-content *)) {
+		display: table;
+		width: 100%;
+	}
+}
+
+/* ---------- Co giãn: dưới 996px dùng menu ☰ bên trái ---------- */
+@media (max-width: 996px) {
+	:root[data-has-sidebar] {
+		--sl-content-inline-start: 0rem !important;
+	}
+
+	:root[data-has-sidebar] .page > .header {
+		padding-inline: calc(var(--sl-nav-pad-x) + var(--sl-menu-button-size) + 0.75rem) var(--sl-nav-pad-x);
+	}
+
+	.sl-menu-button.sl-menu-button {
+		display: flex;
+		inset-inline: var(--sl-nav-pad-x) auto;
+		background: transparent;
+		color: var(--sl-color-white);
+		box-shadow: none;
+		padding: 0.25rem;
+		font-size: 1.5rem;
+	}
+
+	.sidebar-pane.sidebar-pane {
+		width: min(20rem, 85vw);
+		background: var(--sl-color-bg-sidebar);
+		border-inline-end: 1px solid var(--sl-color-hairline);
+	}
+
+	.sidebar-pane.sidebar-pane:not(:popover-open) {
+		display: none;
+	}
+
+	.header .header {
+		display: flex;
+	}
+
+	.header .title-wrapper {
+		margin-inline-end: auto;
+	}
+}
+
+/* ---------- Trang nhúng bài học HTML ---------- */
 .lesson-frame {
 	width: 100%;
 	height: 80vh;

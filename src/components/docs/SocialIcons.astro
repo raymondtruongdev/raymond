@@ -11,9 +11,15 @@ import { url } from '../../lib/url';
 	a {
 		color: var(--sl-color-text);
 		text-decoration: none;
-		font-weight: 600;
+		font-weight: 500;
 	}
 	a:hover {
 		color: var(--sl-color-text-accent);
+	}
+	/* Màn hình rộng đã có link ở bên trái; chỉ giữ trong menu ☰ */
+	@media (min-width: 997px) {
+		a {
+			display: none;
+		}
 	}
 </style>

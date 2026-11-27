@@ -1,0 +1,35 @@
+---
+// Tên web kèm link Blog, Docs nằm bên trái thanh trên
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import { url } from '../../lib/url';
+---
+
+<Default><slot /></Default>
+<nav>
+	<a href={url('blog/')}>Blog</a>
+	<a href={url('docs/')} class="active">Docs</a>
+</nav>
+
+<style>
+	nav {
+		display: none;
+		align-items: center;
+		gap: 1.5rem;
+		margin-inline-start: 1.5rem;
+		white-space: nowrap;
+	}
+	a {
+		color: var(--sl-color-white);
+		font-weight: 500;
+		text-decoration: none;
+	}
+	a:hover,
+	a.active {
+		color: var(--sl-color-text-accent);
+	}
+	@media (min-width: 997px) {
+		nav {
+			display: flex;
+		}
+	}
+</style>
