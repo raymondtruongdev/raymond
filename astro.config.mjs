@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import starlight from '@astrojs/starlight';
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,6 +39,14 @@ export default defineConfig({
 			// Khung code luôn tối ở cả hai giao diện
 			expressiveCode: {
 				themes: ['github-dark-default'],
+				plugins: [pluginLineNumbers()],
+				// Lệnh terminal để chép chạy nên không đánh số
+				defaultProps: {
+					showLineNumbers: true,
+					overridesByLang: {
+						'bash,sh,shell,zsh,console,shellsession,powershell,ps1,bat,cmd,text,txt,plaintext': { showLineNumbers: false },
+					},
+				},
 				useStarlightUiThemeColors: false,
 				styleOverrides: {
 					borderRadius: '12px',
@@ -46,6 +55,7 @@ export default defineConfig({
 					codeFontFamily: "'JetBrains Mono', monospace",
 					codeFontSize: '13.75px',
 					codeLineHeight: '1.85',
+					lineNumbers: { foreground: '#4b5266' },
 					frames: {
 						editorTabBarBackground: 'var(--code-head)',
 						editorActiveTabBackground: 'var(--code-head)',

@@ -75,6 +75,8 @@ tableOfContents: false
 
 Màu, font và bố cục của Docs nằm trong `src/styles/raymond-theme.css`.
 
+Khung code đánh số dòng, trừ lệnh terminal (`bash`, `powershell`...). Muốn bật / tắt cho một khung thì viết ` ```c showLineNumbers=false `.
+
 **Component cho bài `.mdx`** (trong `src/components/docs/`), xem mẫu ở `vps/vps-free-tier.mdx`:
 
 | Component              | Dùng để                                                          |
