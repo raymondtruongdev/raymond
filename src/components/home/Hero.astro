@@ -1,6 +1,5 @@
 ---
-import { cvFile, github, location } from '../../data/profile';
-import { url } from '../../lib/url';
+import { cvUrl, github, location } from '../../data/profile';
 import Icon from './Icon.astro';
 import Portrait from './Portrait.astro';
 ---
@@ -18,7 +17,7 @@ import Portrait from './Portrait.astro';
 		<p class="loc"><Icon name="pin" />{location}</p>
 		<div class="actions">
 			<a class="btn btn-primary" href="#kinh-nghiem">Xem kinh nghiệm <Icon name="arrow" size={17} class="go" /></a>
-			<a class="btn btn-secondary" href={url(cvFile)} download>Tải CV (PDF) <Icon name="down" size={17} /></a>
+			<a class="btn btn-secondary" href={cvUrl} target="_blank" rel="noopener">Tải CV (PDF) <Icon name="down" size={17} /></a>
 			<a class="btn btn-ghost" href={github} target="_blank" rel="noopener"><Icon name="gh" size={18} />GitHub</a>
 		</div>
 	</div>

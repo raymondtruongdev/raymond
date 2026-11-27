@@ -2,8 +2,8 @@
 export const email = 'quoctoan2202@gmail.com';
 export const github = 'https://github.com/raymondtruongdev';
 export const location = 'TP. Hồ Chí Minh';
-// File trong public/
-export const cvFile = 'CV_TQT_202609_EN.pdf';
+// Link Google Drive, nhớ bật chia sẻ "Anyone with the link"
+export const cvUrl = 'https://drive.google.com/file/d/1dxLly0TYVkqtq67Qh_lq0EdsLtcNndVz/view?usp=sharing';
 
 export const stats = [
 	{ value: '16', plus: true, unit: 'năm', label: 'kinh nghiệm' },
