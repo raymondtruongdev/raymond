@@ -22,7 +22,6 @@ Ghi ngày 27/11/2026.
 | Hạn chế | Ghi chú |
 | :------ | :------ |
 | Blog chưa có tìm kiếm, lọc chủ đề, mục lục | Làm khi có nhiều bài |
-| Bài "Xin chào" là bài mẫu | Sửa hoặc xoá `src/content/blog/xin-chao.md` |
 | Không có form liên hệ | GitHub Pages không có backend, đang dùng link email |
 | Email hiển thị công khai | Có thể bị gửi spam |
 | Mục tiếng Anh chỉ ghi "TOEIC" | Thêm điểm trong `src/data/profile.ts` |
