@@ -1,7 +1,7 @@
 # Hướng dẫn sử dụng
 
 Web cá nhân làm bằng [Astro](https://docs.astro.build), chạy trên GitHub Pages:
-https://raymondtruongdev.github.io/raymond/
+https://www.raymondtruong.io.vn/
 
 ## Chạy trên máy
 
@@ -9,7 +9,7 @@ Cần Node.js 22.23.4 trở lên (không dùng bản số lẻ như 23, 25).
 
 ```sh
 npm install       # chỉ cần khi mới clone hoặc đổi dependencies
-npm run dev       # mở http://localhost:4321/raymond/
+npm run dev       # mở http://localhost:4321/
 ```
 
 ## Cấu trúc
@@ -22,14 +22,14 @@ npm run dev       # mở http://localhost:4321/raymond/
 | `src/layouts/Layout.astro`     | Header, menu, footer, nút sáng / tối  |
 | `src/styles/global.css`        | Bảng màu và kiểu chữ                  |
 | `public/`                      | Ảnh, file tĩnh                        |
-| `astro.config.mjs`             | Cấu hình `site` và `base`             |
+| `astro.config.mjs`             | Cấu hình `site` (domain của web)             |
 | `.github/workflows/deploy.yml` | Tự động deploy                        |
 
 Giao diện dùng [Tailwind CSS](https://tailwindcss.com), phỏng theo theme [AgenceX](https://github.com/uno-forge-hub/agency-landing-page-Astrojs) (giấy phép MIT, xem `THIRD_PARTY_LICENSES.md`).
 
 ## Viết bài blog
 
-Tạo `src/content/blog/ten-bai.md`, bài sẽ có địa chỉ `/raymond/blog/ten-bai/`:
+Tạo `src/content/blog/ten-bai.md`, bài sẽ có địa chỉ `/blog/ten-bai/`:
 
 ```md
 ---
@@ -44,7 +44,7 @@ Nội dung bài viết.
 
 ## Viết Docs
 
-Docs dùng [Starlight](https://starlight.astro.build), địa chỉ `/raymond/docs/`.
+Docs dùng [Starlight](https://starlight.astro.build), địa chỉ `/docs/`.
 
 Mỗi chủ đề là một thư mục trong `src/content/docs/docs/`: `algo`, `cpp`, `html`, `git`, `vps`.
 
@@ -68,9 +68,9 @@ title: 'Tiêu đề'
 tableOfContents: false
 ---
 
-<a href="/raymond/lessons/page/<chu-de>/ten-bai.html" target="_blank">Mở toàn màn hình ↗</a>
+<a href="/lessons/page/<chu-de>/ten-bai.html" target="_blank">Mở toàn màn hình ↗</a>
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/<chu-de>/ten-bai.html" title="Tiêu đề"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/<chu-de>/ten-bai.html" title="Tiêu đề"></iframe>
 ```
 
 Màu, font và bố cục của Docs nằm trong `src/styles/raymond-theme.css`.
@@ -99,7 +99,7 @@ Nhớ thêm link bài mới vào trang mục lục `src/content/docs/docs/index.
 
 ## Thêm trang mới
 
-Tạo `src/pages/projects.astro`, trang sẽ có địa chỉ `/raymond/projects/`:
+Tạo `src/pages/projects.astro`, trang sẽ có địa chỉ `/projects/`:
 
 ```astro
 ---
@@ -149,4 +149,4 @@ Theo dõi tại tab [Actions](https://github.com/raymondtruongdev/raymond/action
 | Web báo 404              | Kiểm tra đã push chưa, và Settings → Pages → Source là **GitHub Actions**     |
 | Workflow báo đỏ          | Mở log trong tab Actions, chạy `npm run build` trên máy để tìm lỗi            |
 | Ảnh hoặc link bị hỏng    | Kiểm tra đã dùng `url()` chưa                                                  |
-| Đổi tên repo             | Sửa `base` trong `astro.config.mjs` (bỏ hẳn nếu tên là `<username>.github.io`) |
+| Đổi domain               | Sửa `site` trong `astro.config.mjs` và Settings → Pages của repo               |

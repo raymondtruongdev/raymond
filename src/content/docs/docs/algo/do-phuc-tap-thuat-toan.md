@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/algo/do-phuc-tap-thuat-toan.html" title="Detailed Guide to 11 Complexity Patterns"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/algo/do-phuc-tap-thuat-toan.html" title="Detailed Guide to 11 Complexity Patterns"></iframe>

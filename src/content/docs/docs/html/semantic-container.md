@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/learn_html/semantic-container.html" title="Semantic Container"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/learn_html/semantic-container.html" title="Semantic Container"></iframe>

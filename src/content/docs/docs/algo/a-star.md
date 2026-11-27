@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/algo/a-star.html" title="A* Algorithm"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/algo/a-star.html" title="A* Algorithm"></iframe>

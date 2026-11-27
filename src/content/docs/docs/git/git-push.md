@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/git_lesson/git-push.html" title="Git Push Instructions"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/git_lesson/git-push.html" title="Git Push Instructions"></iframe>

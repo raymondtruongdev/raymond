@@ -7,7 +7,7 @@ category: 'AI Tools'
 
 Nhiều người gọi là "Gemini Antigravity", nhưng tên chính thức là **Google Antigravity**. Google mô tả đây là nền tảng phát triển theo hướng agent: bạn giao việc, các agent lập kế hoạch và thực hiện.
 
-![Sơ đồ các thành phần của Google Antigravity](/raymond/blog-images/antigravity-surfaces.svg)
+![Sơ đồ các thành phần của Google Antigravity](/blog-images/antigravity-surfaces.svg)
 
 ## Dùng ở đâu
 
@@ -51,7 +51,7 @@ irm https://antigravity.google/cli/install.ps1 | iex
 
 ## Chi phí
 
-Có gói miễn phí cho cá nhân với hạn mức làm mới hằng tuần. Muốn dùng nhiều hơn thì mua gói Google AI. Xem chi tiết trong [bài so sánh giá](/raymond/blog/so-sanh-gia-antigravity-claude-code/).
+Có gói miễn phí cho cá nhân với hạn mức làm mới hằng tuần. Muốn dùng nhiều hơn thì mua gói Google AI. Xem chi tiết trong [bài so sánh giá](/blog/so-sanh-gia-antigravity-claude-code/).
 
 ## Nguồn
 

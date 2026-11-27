@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/algo/bfs.html" title="Breadth First Search (BFS)"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/algo/bfs.html" title="Breadth First Search (BFS)"></iframe>

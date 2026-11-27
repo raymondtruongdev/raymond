@@ -5,7 +5,7 @@ là bản thiết kế gốc để đối chiếu, web không dùng tới.
 
 ## Phạm vi
 
-- Thiết kế "Raymond Docs" trong thư mục này áp dụng cho Docs (`/raymond/docs/`), chạy trên Starlight (lộ trình A).
+- Thiết kế "Raymond Docs" trong thư mục này áp dụng cho Docs (`/docs/`), chạy trên Starlight (lộ trình A).
 - Trang chủ dùng chung token màu và nút đổi theme, nhưng có thiết kế riêng:
   xem [HOME_HANDOFF.md](../astro-home-handoff/HOME_HANDOFF.md).
 - Blog vẫn dùng giao diện phỏng theo AgenceX (`src/styles/global.css`, `src/layouts/Layout.astro`).
@@ -35,7 +35,7 @@ hiện sớm, đừng phóng to tiêu đề lại theo bản thiết kế.
 File HTML đặt trong `public/lessons/`. Nội dung file `.md` chỉ cần một thẻ:
 
 ```html
-<iframe class="lesson-frame" src="/raymond/lessons/page/.../ten-bai.html" title="Tên bài"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/.../ten-bai.html" title="Tên bài"></iframe>
 ```
 
 - Nút **Toàn màn hình** tự hiện, không viết link tay.

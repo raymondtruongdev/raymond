@@ -7,9 +7,9 @@ category: 'AI Tools'
 
 Giá dưới đây lấy ngày **27/11/2026**, tính bằng USD, có thể chưa gồm thuế. Giá thay đổi thường xuyên và có thể khác theo quốc gia, nên hãy kiểm tra lại trước khi mua.
 
-Hai bài giới thiệu: [Google Antigravity](/raymond/blog/google-antigravity/) và [Claude Code](/raymond/blog/claude-code/).
+Hai bài giới thiệu: [Google Antigravity](/blog/google-antigravity/) và [Claude Code](/blog/claude-code/).
 
-![Biểu đồ so sánh giá gói cá nhân](/raymond/blog-images/price-compare.svg)
+![Biểu đồ so sánh giá gói cá nhân](/blog-images/price-compare.svg)
 
 ## Gói cá nhân
 

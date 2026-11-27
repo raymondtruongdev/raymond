@@ -7,7 +7,7 @@ category: 'AI Tools'
 
 **Claude Code** là công cụ lập trình theo hướng agent của Anthropic. Nó đọc codebase, sửa file, chạy lệnh và làm việc cùng các công cụ phát triển bạn đang dùng.
 
-![Vòng làm việc của Claude Code](/raymond/blog-images/claude-code-loop.svg)
+![Vòng làm việc của Claude Code](/blog-images/claude-code-loop.svg)
 
 ## Dùng ở đâu
 
@@ -53,7 +53,7 @@ Lần đầu chạy sẽ được yêu cầu đăng nhập.
 
 ## Chi phí
 
-Claude Code không bán riêng. Nó đi kèm gói Claude trả phí, gói Free không có. Cũng có thể trả theo token qua API. Xem [bài so sánh giá](/raymond/blog/so-sanh-gia-antigravity-claude-code/).
+Claude Code không bán riêng. Nó đi kèm gói Claude trả phí, gói Free không có. Cũng có thể trả theo token qua API. Xem [bài so sánh giá](/blog/so-sanh-gia-antigravity-claude-code/).
 
 ## Nguồn
 

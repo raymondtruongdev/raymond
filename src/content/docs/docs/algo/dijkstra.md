@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/algo/dijkstra.html" title="Dijkstra Algorithm"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/algo/dijkstra.html" title="Dijkstra Algorithm"></iframe>

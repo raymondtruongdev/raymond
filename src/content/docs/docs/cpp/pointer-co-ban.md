@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/cpp_lesson/pointer/pointer-co-ban.html" title="Introduction Pointer"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/cpp_lesson/pointer/pointer-co-ban.html" title="Introduction Pointer"></iframe>

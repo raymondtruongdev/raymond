@@ -5,4 +5,4 @@ sidebar:
 tableOfContents: false
 ---
 
-<iframe class="lesson-frame" src="/raymond/lessons/page/cpp_lesson/pointer/shared-weak-pointers.html" title="C++ Shared & Weak Pointers"></iframe>
+<iframe class="lesson-frame" src="/lessons/page/cpp_lesson/pointer/shared-weak-pointers.html" title="C++ Shared & Weak Pointers"></iframe>
