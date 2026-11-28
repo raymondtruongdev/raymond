@@ -1,5 +1,15 @@
 ---
-import { stats } from '../../data/profile';
+import fossil from '../../assets/logos/fossil.svg';
+import hcmut from '../../assets/logos/hcmut.svg';
+import mijo from '../../assets/logos/mijo.svg';
+import { stats, workplaces } from '../../data/profile';
+
+// Fossil là logo chữ ngang nên rộng hơn, cao theo tỉ lệ của file
+const logos = {
+	fossil: { src: fossil.src, width: 46, height: 9 },
+	mijo: { src: mijo.src, width: 40, height: 40 },
+	hcmut: { src: hcmut.src, width: 40, height: 40 },
+};
 ---
 
 <section class="proof reveal" aria-label="Thành tích">
@@ -17,10 +27,23 @@ import { stats } from '../../data/profile';
 			))
 		}
 	</div>
-	<div class="logos">
+	<div class="work">
 		<span class="lab">Từng làm việc tại</span>
-		<span class="wm wm-fossil">FOSSIL</span>
-		<span class="wm wm-mijo">mijo</span>
-		<span class="wm wm-hcmut"><i>BK</i>ĐH Bách Khoa TP.HCM</span>
+		<ul class="work-cards">
+			{
+				workplaces.map((place) => (
+					<li class="work-card">
+						<span class="work-logo">
+							<img {...logos[place.logo]} alt="" aria-hidden="true" />
+						</span>
+						<div>
+							<h3>{place.name}</h3>
+							<p>{place.role}</p>
+							<span class="work-yrs">{place.years}</span>
+						</div>
+					</li>
+				))
+			}
+		</ul>
 	</div>
 </section>

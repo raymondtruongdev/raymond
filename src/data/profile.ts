@@ -13,6 +13,13 @@ export const stats = [
 	{ value: 'Thạc sĩ', label: 'Cơ điện tử' },
 ];
 
+// Thẻ "Từng làm việc tại". `logo` là tên file trong src/assets/logos/
+export const workplaces = [
+	{ logo: 'fossil', name: 'Fossil Group', role: 'Staff AI Algorithm Engineer · AI wearable', years: '5 năm (2018–2023)' },
+	{ logo: 'mijo', name: 'MIJO', role: 'Senior Software Engineer · Connected devices', years: '2 năm (2023–2025)' },
+	{ logo: 'hcmut', name: 'ĐH Bách Khoa TP.HCM', role: 'Giảng viên · Cơ điện tử', years: '7 năm' },
+] as const;
+
 export const expertise = [
 	{
 		icon: 'brain',
